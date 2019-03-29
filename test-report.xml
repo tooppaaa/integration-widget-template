@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<test-results name="jest results" date="2019-03-26" time="10:19:50" invalid="0" ignored="0" inconclusive="0" not-run="0" errors="0" total="1" failures="0" skipped="0">
+  <environment nunit-version="na" clr-version="na" os-version="10.0.14393" platform="win32" cwd="C:\Dev\integration-widget-pie-chart" user="na" user-domain="na" machine-name="DP-J2P6RG2"/>
+  <culture-info current-culture="na" current-uiculture="na"/>
+  <test-suite name="C:\Dev\integration-widget-pie-chart\tests\widget.test.tsx" time="2.427" executed="True" success="True" result="Success" type="TestFixture">
+    <results>
+      <test-case name="Widget Display table with good columns" executed="True" result="Success" time="0">
+      </test-case>
+    </results>
+  </test-suite>
+</test-results>

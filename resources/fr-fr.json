@@ -1,0 +1,11 @@
+{
+    "labels": {
+        "partner-title": "Mes notes de frais",
+        "partner-serie-tocomplete": "A compléter",
+        "partner-serie-invalidation": "En cours de validation",
+        "partner-serie-tovalidate": "A valider par mes soins",
+        "partner-serie-validated": "Validées",
+        "partner-tooltip": "Vous avez <b>{point.y}</b> notes de frais au statut <b>'{point.name}'</b> pour un montant de <b>{point.z}€</b>",
+        "partner-from-to": "du {start} au {end}"
+    }
+}

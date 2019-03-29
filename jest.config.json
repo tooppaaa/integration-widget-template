@@ -1,0 +1,40 @@
+{
+    "testEnvironment": "jsdom",
+    "mapCoverage": true,
+    "collectCoverageFrom": [
+          "app/*.{jsx,tsx}"
+        ],
+    "coverageReporters": [
+        "lcov",
+        "text"
+    ],
+    "setupFiles": [
+        "<rootDir>/tests/config/polyfills.js",
+        "<rootDir>/tests/config/enzyme.js"
+    ],    
+    "testMatch": [
+        "<rootDir>/tests/**/?(*.)(spec|test).tsx"
+    ],
+    "testResultsProcessor": "./node_modules/jest-nunit-reporter",
+    "testURL": "http://localhost",
+    "transform": {
+        "^.+\\.tsx?$": "<rootDir>/tests/config/typescriptTransform.js",
+        ".+\\.(css|less||png||jpg)$": "./tests/config/styleMock.js"
+    },
+    "transformIgnorePatterns": [
+        "[/\\\\]node_modules[/\\\\].+\\.(js|jsx|ts|tsx|less|css)$"
+    ],
+    "moduleFileExtensions": [
+        "ts",
+        "js",
+        "tsx",
+        "jsx",
+        "json",
+        "node"
+    ],
+    "globals": {
+        "ts-jest": {
+        "tsConfigFile": "tsconfig.json"
+        }
+    }
+}
