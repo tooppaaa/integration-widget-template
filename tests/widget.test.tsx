@@ -6,6 +6,7 @@ import { WidgetProps, MyTSHostService, RequestOptions, HeaderActionConfiguration
 describe('Widget', () => {
     const myTSHostService: MyTSHostService = {
         loadData: () => Promise.resolve([]),
+        setDataIsLoading: () => jest.fn(),
         setDataIsLoaded: () => jest.fn(),
         openUrlInNewTab: (url: string) => jest.fn(),
         openUrlInCurrentTab: (url: string) => jest.fn(),

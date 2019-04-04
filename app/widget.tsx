@@ -6,6 +6,7 @@ import { EnlargedWidget } from "./widget-enlarged";
 import AnimateHeight from 'react-animate-height';
 import { throttle } from 'throttle-debounce';
 import Scrollbars from 'react-custom-scrollbars';
+import { ListTemplate, Line } from "./templates/ListTemplate/ListTemplate";
 
 interface WidgetState {
     data: Weather[];
@@ -200,12 +201,17 @@ export class Widget extends React.Component<WidgetProps, WidgetState> {
             );
         }
              
+        let item: Line[] = [{id: 1, urlPicture: 'tres', title:'title', subtitle:'subtitle', description:'description', detail:false}];
+        item.push({id: 2, urlPicture: 'tres', title:'title2', subtitle:'subtitle2', description:'description2', detail:false});
+        item.push({id: 3, urlPicture: 'tres', title:'title3', subtitle:'subtitle3', description:'description3', detail:false});
+        item.push({id: 4, urlPicture: 'tres', title:'title4', subtitle:'subtitle4', description:'description4', detail:false});
+
         return (
             <div className="content">
                 {this.displayAddCity()}
                 <div className="weather-cities">
                 <Scrollbars autoHeight={true} autoHeightMin={450}>
-                    <table className="weather-table">
+                    {/* <table className="weather-table">
                         <thead>
                             <tr>
                                 <th>City</th>
@@ -217,7 +223,8 @@ export class Widget extends React.Component<WidgetProps, WidgetState> {
                         <tbody>
                             {this.displayItems()}
                         </tbody>
-                    </table>
+                    </table> */}
+                        <ListTemplate showPicture={true} showDetail={true} values={item}/>
                     </Scrollbars>
                 </div>
             </div>
