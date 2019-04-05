@@ -7,6 +7,7 @@ import AnimateHeight from 'react-animate-height';
 import { throttle } from 'throttle-debounce';
 import Scrollbars from 'react-custom-scrollbars';
 import { ListTemplate, Line } from "./templates/ListTemplate/ListTemplate";
+import { PieCharts } from "./templates/PieCharts/PieCharts";
 
 interface WidgetState {
     data: Weather[];
@@ -206,25 +207,19 @@ export class Widget extends React.Component<WidgetProps, WidgetState> {
         item.push({id: 3, urlPicture: 'tres', title:'title3', subtitle:'subtitle3', description:'description3', detail:false});
         item.push({id: 4, urlPicture: 'tres', title:'title4', subtitle:'subtitle4', description:'description4', detail:false});
 
+
         return (
             <div className="content">
                 {this.displayAddCity()}
                 <div className="weather-cities">
                 <Scrollbars autoHeight={true} autoHeightMin={450}>
-                    {/* <table className="weather-table">
-                        <thead>
-                            <tr>
-                                <th>City</th>
-                                <th>Temperature</th>
-                                <th>Weather</th>
-                                <th>Cancel</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {this.displayItems()}
-                        </tbody>
-                    </table> */}
-                        <ListTemplate showPicture={true} showDetail={true} values={item}/>
+                        {/* <ListTemplate showPicture={true} showDetail={true} values={item}/> */}
+                        <PieCharts 
+                            data={[["Elem1poergopr", 1],["Test3", 2],["Elem3", 1]]} 
+                            title="Test pie charts test" 
+                            period="24/03/2019 - 20/02/2020" 
+                            tooltip="My note de frais"    
+                        />
                     </Scrollbars>
                 </div>
             </div>
