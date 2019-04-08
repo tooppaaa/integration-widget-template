@@ -215,7 +215,7 @@ export class Widget extends React.Component<WidgetProps, WidgetState> {
                 <Scrollbars autoHeight={true} autoHeightMin={450}>
                         {/* <ListTemplate showPicture={true} showDetail={true} values={item}/> */}
                         <PieCharts 
-                            data={[["Elem1poergopr", 1],["Test3", 2],["Elem3", 1]]} 
+                            data={[["okloplop", 1],["Test3oizjofijziojfoiezjofie", 2],["e", 2],["r", 2],["g", 2]]} 
                             title="Test pie charts test" 
                             period="24/03/2019 - 20/02/2020" 
                             tooltip="My note de frais"    

@@ -40,7 +40,7 @@ export class PieCharts extends React.Component<PieChartsProps> {
                     allowPointSelect: true,
                     cursor: 'pointer',
                     dataLabels: {
-                        enabled: false
+                        enabled: false,
                     },
                     showInLegend: true
                 }
@@ -51,10 +51,24 @@ export class PieCharts extends React.Component<PieChartsProps> {
             legend: {
                 useHTML: true,
                 itemMarginTop: 40,
+                itemWidth: 100,
                 symbolHeight: 20,
                 symbolWidth: 20,
+                width: 350,
+                x: 30,
                 verticalAlign: 'bottom',
-                align: 'center'
+                align: 'center',
+                itemStyle: {
+                    color: '#124D72',
+                    fontWeight: 'normal',
+                    fontFamily: 'Roboto'
+                },
+                labelFormatter: function(this: {name: string}) {
+                    if (this.name.length > 9) {
+                        return this.name.slice(0, 9) + '...';
+                    }
+                    return this.name;
+                }
             }
         };
     }
