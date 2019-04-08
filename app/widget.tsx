@@ -137,7 +137,7 @@ export class Widget extends React.Component<WidgetProps, WidgetState> {
         myTSHostService.setHeaderActionConfiguration({enlargeable: true, 
             customActions: {
                 addAction: () => this.displayAddButton(),
-                searchAction: (textToSearch: string) => this.handleChangeSearch(textToSearch)
+                searchAction: () => (() => undefined)
             } });
     }
 

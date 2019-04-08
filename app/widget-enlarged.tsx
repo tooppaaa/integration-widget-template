@@ -51,7 +51,7 @@ export class EnlargedWidget extends React.Component<EnlargedWidgetProps, Enlarge
         widgetProps.myTSHostService.setHeaderActionConfiguration({enlargeable: true, 
             customActions: {
                 addAction: (() => undefined),
-                searchAction: (textToSearch: string) => this.handleChangeSearch(textToSearch)
+                searchAction: () => (() => undefined)
             } });
         this.setState({selectedCity: this.state.cities[0].name});
     }
