@@ -201,10 +201,10 @@ export class Widget extends React.Component<WidgetProps, WidgetState> {
             );
         }
              
-        let item: Line[] = [{id: 1, urlPicture: 'tres', title:'title', subtitle:'subtitle', description:'description', detail:false}];
-        item.push({id: 2, urlPicture: 'tres', title:'title2', subtitle:'subtitle2', description:'description2', detail:false});
-        item.push({id: 3, urlPicture: 'tres', title:'title3', subtitle:'subtitle3', description:'description3', detail:false});
-        item.push({id: 4, urlPicture: 'tres', title:'title4', subtitle:'subtitle4', description:'description4', detail:false});
+        let item: Line[] = [{id: 1, urlPicture: '', title:'title', subtitle:'subtitle', description:'description', detail:false}];
+        item.push({id: 2, urlPicture: '', title:'title2', subtitle:'subtitle2', description:'description2', detail:false});
+        item.push({id: 3, urlPicture: '', title:'title3', subtitle:'subtitle3', description:'description3', detail:false});
+        item.push({id: 4, urlPicture: '', title:'title4', subtitle:'subtitle4', description:'description4', detail:false});
 
         return (
             <div className="content">

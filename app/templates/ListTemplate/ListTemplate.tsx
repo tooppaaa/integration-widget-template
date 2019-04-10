@@ -22,13 +22,14 @@ export class ListTemplate extends React.Component<ListTemplateProps> {
         super(props);
     }
 
-    displayAvatar() {
+    displayAvatar(urlPicture: string) {
+        const imageLink = (urlPicture !== undefined && urlPicture !== "") ? <img src={urlPicture}></img> : <i className="icon-profil"></i>
         if (this.props.showPicture) {
             return (
                 <div className="line-avatar">
                     <div className="Hylia-a-avatar Hylia-a-avatar--default Hylia-a-avatar--medium Hylia-a-avatar--initial">
                         <div className="Hylia-a-avatar__wrapper">
-                            <div className="Hylia-a-avatar__picture"><span className="Hylia-a-avatar__initial"></span><i className="icon-profil"></i></div>
+                            <div className="Hylia-a-avatar__picture"><span className="Hylia-a-avatar__initial"></span>{imageLink}</div>
                         </div>
                     </div>
                 </div>
@@ -60,7 +61,7 @@ export class ListTemplate extends React.Component<ListTemplateProps> {
     displayLine(value: Line) {
         return (
             <li className="list-template-line" key={value.id}>
-                {this.displayAvatar()}
+                {this.displayAvatar(value.urlPicture)}
                 <div className="line-title">
                     <div className="title">
                         <Truncate lines={1} ellipsis={<span>{("...")}</span>}>
