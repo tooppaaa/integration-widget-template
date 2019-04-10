@@ -1,0 +1,115 @@
+@import "~@talentsoft-opensource/hylia/utilities/variables.less";
+@import "~@talentsoft-opensource/uxp-themes/dist/assets/styles/icomoon.less";
+
+.partner-title {
+    margin-top: 30px;
+    margin-bottom: 40px;
+    height: 34px;
+    width: 384px;
+    color: #333333;
+    font-family: Roboto;
+    font-size: 18px;
+    line-height: 34px;
+    text-align: center;
+    width: 100%;
+}
+
+.table-template {
+    width: 100%;
+    padding: 0 10px;
+
+    .table-template-columns {
+        margin-bottom: 10px;
+
+        th {
+            color: #333333;
+            font-family: 'Roboto_bold';
+            font-size: 14px;
+            font-weight: bold;
+            line-height: 16px;
+        }
+    }
+
+    .table-line {
+        height: 90px;
+
+        .text {
+            font-family: 'Roboto_bold';
+            font-size: 1.4rem;
+            color: #337BB8;
+        }
+
+        .dates {
+            height: 18px;
+            width: 116px;
+            color: #737373;
+            font-family: 'Roboto';
+            font-size: 12px;
+            font-style: italic;	
+            line-height: 18px;
+        }
+
+        .status {
+            font-size: 1.6rem;
+            line-height: 1.6rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+        
+            border-width: 0.2rem;
+            border-style: solid;
+            border-radius: 50%;
+
+            i {
+                justify-content: center;
+                width: 38%;
+            }
+
+            &.active {
+                color: white;
+                background-color: #31B87B;
+            }
+
+            &.pending {
+                color: white;
+                background-color: #E47524;
+            }
+
+            &.inactive {
+                color: white;
+                background-color: #D11548;
+            }
+        }
+    }
+
+    .table-line:nth-child(odd) {
+        background-color: #FAFAFA;
+    }
+
+    .table-line:nth-child(even) {
+        background-color: #ffffff;
+    }
+}
+
+.Hylia-a-tag {
+    font-family: 'Roboto_regular';
+    font-size: 1.3rem;
+    position: relative;
+    display: inline-block;
+    line-height: 2rem;
+    overflow: hidden;
+    min-width: 20px;
+    max-width: 25rem;
+    height: 20px;
+    margin: 0.5rem;
+    padding: 0 12px;
+    transition: background 0.3s;
+    text-align: center;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    background-color: #337BB8;
+    border-radius: 1000rem;
+    color: #ffffff;
+}

@@ -7,6 +7,9 @@ import AnimateHeight from 'react-animate-height';
 import { throttle } from 'throttle-debounce';
 import Scrollbars from 'react-custom-scrollbars';
 import { ListTemplate, Line } from "./templates/ListTemplate/ListTemplate";
+import { PieCharts } from "./templates/PieCharts/PieCharts";
+import { TableTemplate, Value, Column } from "./templates/Table/TableTemplate";
+import { ValueType } from "./templates/Table/ValueType";
 
 interface WidgetState {
     data: Weather[];
@@ -206,25 +209,39 @@ export class Widget extends React.Component<WidgetProps, WidgetState> {
         item.push({id: 3, urlPicture: '', title:'title3', subtitle:'subtitle3', description:'description3', detail:false});
         item.push({id: 4, urlPicture: '', title:'title4', subtitle:'subtitle4', description:'description4', detail:false});
 
+        let val: Array<Value[]> = new Array<Value[]>();
+        val.push([{type:ValueType.Tag, value: 12}, 
+                {type: ValueType.Text, value: 'AR'}, 
+                {type:ValueType.Date, value: '12/12/2017'}, 
+                {type:ValueType.Status, value: true}]);
+        val.push([{type:ValueType.Tag, value: '12'}, 
+                {type: ValueType.Text, value: 'AR'}, 
+                {type:ValueType.Date, value: '12/12/2017'}, 
+                {type:ValueType.Status, value: false}]);
+        val.push([{type:ValueType.Tag, value: '12'}, 
+                {type: ValueType.Text, value: 'AR'}, 
+                {type:ValueType.Date, value: '12/12/2017'}, 
+                {type:ValueType.Status, value: 'pending'}]);
+
+        let columns: Column[] = [];
+        columns.push({name: 'Count', width: '20%'});
+        columns.push({name: 'Type', width: '20%'});
+        columns.push({name: 'Date', width: '50%'});
+        columns.push({name: 'Status', width: '10%'});
+
         return (
             <div className="content">
                 {this.displayAddCity()}
                 <div className="weather-cities">
                 <Scrollbars autoHeight={true} autoHeightMin={450}>
-                    {/* <table className="weather-table">
-                        <thead>
-                            <tr>
-                                <th>City</th>
-                                <th>Temperature</th>
-                                <th>Weather</th>
-                                <th>Cancel</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {this.displayItems()}
-                        </tbody>
-                    </table> */}
-                        <ListTemplate showPicture={true} showDetail={true} values={item}/>
+                        {/* <ListTemplate showPicture={true} showDetail={true} values={item}/> */}
+                        {/* <PieCharts 
+                            data={[["okloplop", 1],["Test3oizjofijziojfoiezjofie", 2],["e", 2],["r", 2],["g", 2]]} 
+                            title="Test pie charts test" 
+                            period="24/03/2019 - 20/02/2020" 
+                            tooltip="My note de frais"    
+                        /> */}
+                        <TableTemplate title="Partner Tite" columns={columns} values={val} />
                     </Scrollbars>
                 </div>
             </div>
