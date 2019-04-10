@@ -26,17 +26,17 @@ export class TableTemplate extends React.Component<TableTemplateProps> {
     displayStatus(value: (string | number | boolean)) {
         if (value.toString() === "true") {
             return (
-                <td><div className="status active"><i className="icon-check"/></div></td>
+                <div className="status active"><i className="icon-check"/></div>
             );
         }
         else if (value.toString() === "false") {
             return (
-                <td><div className="status inactive"><i className="icon-delete"/></div></td>
+                <div className="status inactive"><i className="icon-delete"/></div>
             );
         }
         else if (value.toString() === "pending") {
             return (
-                <td><div className="status pending"><i className="icon-waiting"/></div></td>
+                <div className="status pending"><i className="icon-waiting"/></div>
             );
         }
     }
@@ -55,11 +55,21 @@ export class TableTemplate extends React.Component<TableTemplateProps> {
                 <tr className="table-line" key={index}>
                     {value.map(item => {
                         switch(item.type) {
-                            case ValueType.Date: { return (<td className="dates">{item.value}</td>); }
-                            case ValueType.Text: { return (<td className="text">{item.value}</td>); }
-                            case ValueType.Tag: { return (<td><span className="Hylia-a-tag Hylia-a-tag--apprentice">{item.value}</span></td>); }
-                            case ValueType.Status: { return (this.displayStatus(item.value)); }
-                            default: { return (<td className="text">{item.value}</td>); }
+                            case ValueType.Date: { 
+                                return (<td className="dates" key={item.value.toString() + index}>{item.value}</td>); 
+                            }
+                            case ValueType.Text: { 
+                                return (<td className="text" key={item.value.toString() + index}>{item.value}</td>); 
+                            }
+                            case ValueType.Tag: { 
+                                return (<td key={item.value.toString() + index}><span className="Hylia-a-tag Hylia-a-tag--apprentice">{item.value}</span></td>); 
+                            }
+                            case ValueType.Status: { 
+                                return (<td key={item.value.toString() + index}>{this.displayStatus(item.value)}</td>); 
+                            }
+                            default: { 
+                                return (<td className="text" key={item.value.toString() + index}>{item.value}</td>); 
+                            }
                         }})
                     }
                 </tr>
