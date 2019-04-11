@@ -128,7 +128,7 @@ export class Widget extends React.Component<WidgetProps, WidgetState> {
         return [];
     }
     
-    formattedDataForPieChart() {
+    formattedDataForPieChart() : (number | [number, number] | [string, number] | [string, number, number] | [number, number, number])[] {
         if (this.state.data !== undefined && this.state.data.length !== 0) {
             const dataToFormat = this.state.data;
             return ([
@@ -138,7 +138,7 @@ export class Widget extends React.Component<WidgetProps, WidgetState> {
                 [dataToFormat[3].name, dataToFormat[3].amount]
             ]);
         }
-        return [['tes', 1]];
+        return [];
     }
 
     formattedDataForTable() {
@@ -188,14 +188,14 @@ export class Widget extends React.Component<WidgetProps, WidgetState> {
                 <div className="widget-template">
                 <Scrollbars autoHeight={true} autoHeightMin={450}>
                         {/* <List showPicture={true} showDetail={true} values={this.formattedDataForList()}/> */}
-                        {/* <PieCharts 
+                        <PieCharts 
                             data={this.formattedDataForPieChart()} 
                             title="Pie Charts expenses" 
                             period="24/03/2019 - 20/02/2020" 
-                            tooltip="My expense"    
-                        /> */}
-                        <div className="partner-title">{"Partner Title"}</div>
-                        <Table columns={this.formattedColumnsForTable()} values={this.formattedDataForTable()} />
+                            tooltip="My expenses"    
+                        />
+                        {/* <div className="partner-title">{"Partner Title"}</div>
+                        <Table columns={this.formattedColumnsForTable()} values={this.formattedDataForTable()} /> */}
                     </Scrollbars>
                 </div>
             </div>
