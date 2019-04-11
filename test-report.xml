@@ -1,104 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<test-results name="jest results" date="2019-04-11" time="16:04:58" invalid="0" ignored="0" inconclusive="0" not-run="0" errors="0" total="6" failures="5" skipped="0">
+<test-results name="jest results" date="2019-04-11" time="16:41:24" invalid="0" ignored="0" inconclusive="0" not-run="0" errors="0" total="16" failures="0" skipped="0">
   <environment nunit-version="na" clr-version="na" os-version="10.0.14393" platform="win32" cwd="C:\Dev\integration-widget-template" user="na" user-domain="na" machine-name="DP-J2P6RG2"/>
   <culture-info current-culture="na" current-uiculture="na"/>
-  <test-suite name="C:\Dev\integration-widget-template\tests\widget.test.tsx" time="1.128" executed="True" success="True" result="Success" type="TestFixture">
+  <test-suite name="C:\Dev\integration-widget-template\app\templates\Table\Table.test.tsx" time="0.986" executed="True" success="True" result="Success" type="TestFixture">
+    <results>
+      <test-case name="Widget Table Table has the good amount of columns" executed="True" result="Success" time="0">
+      </test-case>
+      <test-case name="Widget Table Table has the good amount of line" executed="True" result="Success" time="0">
+      </test-case>
+      <test-case name="Widget Table Check Tag type has the good css class" executed="True" result="Success" time="0">
+      </test-case>
+      <test-case name="Widget Table Check Date type has the good css class" executed="True" result="Success" time="0">
+      </test-case>
+      <test-case name="Widget Table Check Text type has the good css class" executed="True" result="Success" time="0">
+      </test-case>
+      <test-case name="Widget Table Check active Status type has the good css class" executed="True" result="Success" time="0">
+      </test-case>
+      <test-case name="Widget Table Check pending Status type has the good css class" executed="True" result="Success" time="0">
+      </test-case>
+      <test-case name="Widget Table Check inactive Status type has the good css class" executed="True" result="Success" time="0">
+      </test-case>
+    </results>
+  </test-suite>
+  <test-suite name="C:\Dev\integration-widget-template\app\templates\List\List.test.tsx" time="1.008" executed="True" success="True" result="Success" type="TestFixture">
+    <results>
+      <test-case name="Widget List With showPicture = true, Check if urlPicture is null/empty, show default icon" executed="True" result="Success" time="0">
+      </test-case>
+      <test-case name="Widget List With showPicture = true, Check if urlPicture is not null/empty, show image" executed="True" result="Success" time="0">
+      </test-case>
+      <test-case name="Widget List With showPicture = false, Check if urlPicture or icon is not display" executed="True" result="Success" time="0">
+      </test-case>
+      <test-case name="Widget List With showDetail = true, Check if detail is displayed with the right color" executed="True" result="Success" time="0">
+      </test-case>
+      <test-case name="Widget List With showDetail = true, Check if detail is displayed with the right color" executed="True" result="Success" time="0">
+      </test-case>
+    </results>
+  </test-suite>
+  <test-suite name="C:\Dev\integration-widget-template\tests\widget.test.tsx" time="1.233" executed="True" success="True" result="Success" type="TestFixture">
     <results>
       <test-case name="Widget Display table with good columns" executed="True" result="Success" time="0">
       </test-case>
     </results>
   </test-suite>
-  <test-suite name="C:\Dev\integration-widget-template\app\templates\List\List.test.tsx" time="2.385" executed="True" success="False" result="Failure" type="TestFixture">
+  <test-suite name="C:\Dev\integration-widget-template\app\templates\PieCharts\PieCharts.test.tsx" time="2.537" executed="True" success="True" result="Success" type="TestFixture">
     <results>
-      <test-case name="Widget List With showPicture = true, Check if urlPicture is null/empty, show default icon" executed="True" result="Failure" time="0">
-        <failure>
-          <message>Error: [2mexpect([22m[31mreceived[39m[2m).toBe([22m[32mexpected[39m[2m) // Object.is equality[22m
-
-Expected: [32mfalse[39m
-Received: [31mtrue[39m</message>
-          <stack-trace>    at Object.&lt;anonymous&gt; (C:\Dev\integration-widget-template\app\templates\List\List.test.tsx:23:48)
-    at Object.asyncJestLifecycle (C:\Dev\integration-widget-template\node_modules\jest-jasmine2\build\jasmine_async.js:63:37)
-    at resolve (C:\Dev\integration-widget-template\node_modules\jest-jasmine2\build\queue_runner.js:56:12)
-    at new Promise (&lt;anonymous&gt;)
-    at mapper (C:\Dev\integration-widget-template\node_modules\jest-jasmine2\build\queue_runner.js:43:19)
-    at promise.then (C:\Dev\integration-widget-template\node_modules\jest-jasmine2\build\queue_runner.js:87:41)
-    at &lt;anonymous&gt;
-    at runMicrotasksCallback (internal/process/next_tick.js:121:5)
-    at _combinedTickCallback (internal/process/next_tick.js:131:7)
-    at process._tickCallback (internal/process/next_tick.js:180:9)</stack-trace>
-        </failure>
+      <test-case name="Widget PieCharts Check if PieCharts has the good title displayed" executed="True" result="Success" time="0">
       </test-case>
-      <test-case name="Widget List With showPicture = true, Check if urlPicture is not null/empty, show image" executed="True" result="Failure" time="0">
-        <failure>
-          <message>Error: [2mexpect([22m[31mreceived[39m[2m).toBe([22m[32mexpected[39m[2m) // Object.is equality[22m
-
-Expected: [32mfalse[39m
-Received: [31mtrue[39m</message>
-          <stack-trace>    at Object.&lt;anonymous&gt; (C:\Dev\integration-widget-template\app\templates\List\List.test.tsx:23:48)
-    at Object.asyncJestLifecycle (C:\Dev\integration-widget-template\node_modules\jest-jasmine2\build\jasmine_async.js:63:37)
-    at resolve (C:\Dev\integration-widget-template\node_modules\jest-jasmine2\build\queue_runner.js:56:12)
-    at new Promise (&lt;anonymous&gt;)
-    at mapper (C:\Dev\integration-widget-template\node_modules\jest-jasmine2\build\queue_runner.js:43:19)
-    at promise.then (C:\Dev\integration-widget-template\node_modules\jest-jasmine2\build\queue_runner.js:87:41)
-    at &lt;anonymous&gt;
-    at runMicrotasksCallback (internal/process/next_tick.js:121:5)
-    at _combinedTickCallback (internal/process/next_tick.js:131:7)
-    at process._tickCallback (internal/process/next_tick.js:180:9)</stack-trace>
-        </failure>
-      </test-case>
-      <test-case name="Widget List With showPicture = false, Check if urlPicture or icon is not display" executed="True" result="Failure" time="0">
-        <failure>
-          <message>Error: [2mexpect([22m[31mreceived[39m[2m).toBe([22m[32mexpected[39m[2m) // Object.is equality[22m
-
-Expected: [32mfalse[39m
-Received: [31mtrue[39m</message>
-          <stack-trace>    at Object.&lt;anonymous&gt; (C:\Dev\integration-widget-template\app\templates\List\List.test.tsx:23:48)
-    at Object.asyncJestLifecycle (C:\Dev\integration-widget-template\node_modules\jest-jasmine2\build\jasmine_async.js:63:37)
-    at resolve (C:\Dev\integration-widget-template\node_modules\jest-jasmine2\build\queue_runner.js:56:12)
-    at new Promise (&lt;anonymous&gt;)
-    at mapper (C:\Dev\integration-widget-template\node_modules\jest-jasmine2\build\queue_runner.js:43:19)
-    at promise.then (C:\Dev\integration-widget-template\node_modules\jest-jasmine2\build\queue_runner.js:87:41)
-    at &lt;anonymous&gt;
-    at runMicrotasksCallback (internal/process/next_tick.js:121:5)
-    at _combinedTickCallback (internal/process/next_tick.js:131:7)
-    at process._tickCallback (internal/process/next_tick.js:180:9)</stack-trace>
-        </failure>
-      </test-case>
-      <test-case name="Widget List With showDetail = true, Check if detail is displayed with the right color" executed="True" result="Failure" time="0">
-        <failure>
-          <message>Error: [2mexpect([22m[31mreceived[39m[2m).toBe([22m[32mexpected[39m[2m) // Object.is equality[22m
-
-Expected: [32mfalse[39m
-Received: [31mtrue[39m</message>
-          <stack-trace>    at Object.&lt;anonymous&gt; (C:\Dev\integration-widget-template\app\templates\List\List.test.tsx:23:48)
-    at Object.asyncJestLifecycle (C:\Dev\integration-widget-template\node_modules\jest-jasmine2\build\jasmine_async.js:63:37)
-    at resolve (C:\Dev\integration-widget-template\node_modules\jest-jasmine2\build\queue_runner.js:56:12)
-    at new Promise (&lt;anonymous&gt;)
-    at mapper (C:\Dev\integration-widget-template\node_modules\jest-jasmine2\build\queue_runner.js:43:19)
-    at promise.then (C:\Dev\integration-widget-template\node_modules\jest-jasmine2\build\queue_runner.js:87:41)
-    at &lt;anonymous&gt;
-    at runMicrotasksCallback (internal/process/next_tick.js:121:5)
-    at _combinedTickCallback (internal/process/next_tick.js:131:7)
-    at process._tickCallback (internal/process/next_tick.js:180:9)</stack-trace>
-        </failure>
-      </test-case>
-      <test-case name="Widget List With showDetail = true, Check if detail is displayed with the right color" executed="True" result="Failure" time="0">
-        <failure>
-          <message>Error: [2mexpect([22m[31mreceived[39m[2m).toBe([22m[32mexpected[39m[2m) // Object.is equality[22m
-
-Expected: [32mfalse[39m
-Received: [31mtrue[39m</message>
-          <stack-trace>    at Object.&lt;anonymous&gt; (C:\Dev\integration-widget-template\app\templates\List\List.test.tsx:23:48)
-    at Object.asyncJestLifecycle (C:\Dev\integration-widget-template\node_modules\jest-jasmine2\build\jasmine_async.js:63:37)
-    at resolve (C:\Dev\integration-widget-template\node_modules\jest-jasmine2\build\queue_runner.js:56:12)
-    at new Promise (&lt;anonymous&gt;)
-    at mapper (C:\Dev\integration-widget-template\node_modules\jest-jasmine2\build\queue_runner.js:43:19)
-    at promise.then (C:\Dev\integration-widget-template\node_modules\jest-jasmine2\build\queue_runner.js:87:41)
-    at &lt;anonymous&gt;
-    at runMicrotasksCallback (internal/process/next_tick.js:121:5)
-    at _combinedTickCallback (internal/process/next_tick.js:131:7)
-    at process._tickCallback (internal/process/next_tick.js:180:9)</stack-trace>
-        </failure>
+      <test-case name="Widget PieCharts Check if PieCharts has the good period displayed" executed="True" result="Success" time="0">
       </test-case>
     </results>
   </test-suite>
