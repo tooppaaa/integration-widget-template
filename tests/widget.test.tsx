@@ -36,7 +36,6 @@ describe('Widget', () => {
     };
 
     it('Display table with good columns', async () => {
-        Widget.prototype.getweather = jest.fn();
         const mockWidget = await renderWidget();
 
         const headerColumns = mockWidget.find('thead').find('tr').find('th');

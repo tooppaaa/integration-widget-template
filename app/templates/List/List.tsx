@@ -1,5 +1,5 @@
 import *  as React from "react";
-import './ListTemplate.less';
+import './List.less';
 import Truncate from 'react-truncate';
 
 export interface Line {
@@ -11,57 +11,56 @@ export interface Line {
     detail: boolean;
 }
 
-export interface ListTemplateProps {
+export interface ListProps {
     showPicture: boolean;
     showDetail: boolean;
     values: Line[];
 }
 
-export class ListTemplate extends React.Component<ListTemplateProps> {
-    constructor(props: ListTemplateProps) {
+export class List extends React.Component<ListProps> {
+    constructor(props: ListProps) {
         super(props);
     }
 
     displayAvatar(urlPicture: string) {
         const imageLink = (urlPicture !== undefined && urlPicture !== "") ? <img src={urlPicture}></img> : <i className="icon-profil"></i>
-        if (this.props.showPicture) {
+        return (
+            <div className="line-avatar">
+                <div className="Hylia-a-avatar Hylia-a-avatar--default Hylia-a-avatar--medium Hylia-a-avatar--initial">
+                    <div className="Hylia-a-avatar__wrapper">
+                        <div className="Hylia-a-avatar__picture"><span className="Hylia-a-avatar__initial"></span>{imageLink}</div>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
+    displayDetail(value: boolean) {
+        if (value) {
             return (
-                <div className="line-avatar">
-                    <div className="Hylia-a-avatar Hylia-a-avatar--default Hylia-a-avatar--medium Hylia-a-avatar--initial">
-                        <div className="Hylia-a-avatar__wrapper">
-                            <div className="Hylia-a-avatar__picture"><span className="Hylia-a-avatar__initial"></span>{imageLink}</div>
-                        </div>
+                <div className="line-detail">
+                    <div className="detail green">
+                    </div>
+                </div>
+            );
+        }
+        else {
+            return (
+                <div className="line-detail">
+                    <div className="detail red">
                     </div>
                 </div>
             );
         }
     }
 
-    displayDetail(value: boolean) {
-        if (this.props.showDetail) {
-            if (value) {
-                return (
-                    <div className="line-detail">
-                        <div className="detail green">
-                        </div>
-                    </div>
-                );
-            }
-            else {
-                return (
-                    <div className="line-detail">
-                        <div className="detail red">
-                        </div>
-                    </div>
-                );
-            }
-        }
-    }
-
     displayLine(value: Line) {
+        const detail = this.props.showDetail ? this.displayDetail(value.detail) : undefined;
+        const avatar = this.props.showPicture ? this.displayAvatar(value.urlPicture) : undefined;
+
         return (
             <li className="list-template-line" key={value.id}>
-                {this.displayAvatar(value.urlPicture)}
+                {avatar}
                 <div className="line-title">
                     <div className="title">
                         <Truncate lines={1} ellipsis={<span>{("...")}</span>}>
@@ -79,7 +78,7 @@ export class ListTemplate extends React.Component<ListTemplateProps> {
                         </Truncate>
                     </div>
                 </div>
-                {this.displayDetail(value.detail)}
+                {detail}
             </li>
         );
     }

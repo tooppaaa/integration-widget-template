@@ -1,135 +1,86 @@
 import *  as React from "react";
 import { WidgetProps } from "@talentsoft-opensource/integration-widget-contract"
-import '../asset/widget.less'; 
-import '../asset/image/logo-soleil.png';
+import '../asset/widget.less';
 import { EnlargedWidget } from "./widget-enlarged";
-import AnimateHeight from 'react-animate-height';
-import { throttle } from 'throttle-debounce';
 import Scrollbars from 'react-custom-scrollbars';
-import { ListTemplate, Line } from "./templates/ListTemplate/ListTemplate";
+import { List, Line } from "./templates/List/List";
 import { PieCharts } from "./templates/PieCharts/PieCharts";
-import { TableTemplate, Value, Column } from "./templates/Table/TableTemplate";
+import { Table, Value, Column } from "./templates/Table/Table";
 import { ValueType } from "./templates/Table/ValueType";
+import { hostmock } from "../mock/host-mock";
+
+interface Expense {
+    name: string,
+    amount: number,
+    date: string,
+    description: string,
+    status: string
+}
 
 interface WidgetState {
-    data: Weather[];
-    searchResult: Weather[];
+    data: Expense[];
+    searchResult: Expense[];
     addtextvalue: string;
     searchtextvalue: string;
-    displayAddCity: boolean;
 }
 
 export class Widget extends React.Component<WidgetProps, WidgetState> {
-    handleAddChangeThrottled: throttle<(e: any) => void>;
     constructor(props: WidgetProps) {
         super(props);
         this.state = { 
             data:[],
             searchResult:[],
             addtextvalue : "",
-            searchtextvalue: "",
-            displayAddCity: false
+            searchtextvalue: ""
         };
-        this.handleAddChangeThrottled = throttle(200, (e) => { this.handleAddChange(e) });
         this.defineActionHeaders();
     }
     
-    componentDidMount(){
-        this.loadCities();
+    componentWillMount(){
+        this.getData();
     }
 
-    loadCities() {
-        this.getweather('Paris');
-        this.getweather('London');
-        this.getweather('Turin');
-        this.getweather('Tunis');
-        this.getweather('Tuni');
-        this.getweather('Turi');
-        this.getweather('Par');
-        this.getweather('Rio');
-        this.getweather('Lisbon');
+    public async getData() {
+        const { myTSHostService } = this.props;
 
+        myTSHostService.setDataIsLoading();
 
-        const {myTSHostService } = this.props;
-        myTSHostService.setDataIsLoaded();
-    }
+        if (hostmock.requestExternalResource !== undefined) {
+            const response = await hostmock.requestExternalResource({verb: 'GET', url: "url api" });
 
-    public async getweather(city:string) {
-        const {myTSHostService} = this.props;
-        const url = 'https://api.openweathermap.org/data/2.5/weather';
-        let queryString = `?q=${city}&units=metric&appid=7848d30cce738e7887f77f176bb76f2c`;
-       
-        const response = await myTSHostService.requestExternalResource({verb: 'GET', url: url + queryString });
-
-        if (response !== null){
-            let data = [];
-            try {
-                data = JSON.parse(response.body);
-            } 
-            catch (e) {
-                console.log(e);
-            }  
-            if (data.cod === 200){
-                let weather:Weather= {
-                    name:data.name,
-                    temp:data.main.temp,
-                    temp_min: data.main.temp_min,
-                    temp_max: data.main.temp_max,
-                    sky:data.weather[0].icon,
-                    desc:data.weather[0].main,
-                    country:data.sys.country,
-                    humidity: data.main.humidity,
-                    pressure: data.main.pressure,
-                    wind: {
-                        speed: data.wind.speed,
-                        deg: data.wind.deg,
-                        gust: data.wind.gust
-                    }
-                };
-                    
-                this.setState(prevState => ({
-                    data: [...prevState.data, weather]
-                }));
+            if (response !== null){
+                let data = [];
+                try {
+                    data = JSON.parse(response.body);
+                } 
+                catch (e) {
+                    console.log(e);
+                } 
+                if (response.status === 200){
+                    const dataToSave = data as Expense[];
+                    this.setState({data: dataToSave});
+                    myTSHostService.setDataIsLoaded();
+                }
             }
             else {
-                console.warn(city + ": " + data.message);
+                alert("couldn't retrieve data...")
             }
         }
-        else {
-            alert("this city may not exist try again...")
-        }
-    }
-
-    displayAddButton() {
-        this.setState({ displayAddCity: !this.state.displayAddCity});
-    }
-
-    displayAddCity() {
-        return(
-            <AnimateHeight height={this.state.displayAddCity ? 'auto' : 0} className="AnimateHeight">
-                <div className={'input-add'}>
-                    <input type="text" placeholder="Add you city" onChange={(e) => { e.persist(); this.handleAddChangeThrottled(e); } } onKeyPress={(target) => (target.key === 'Enter' ? this.handleAddTodoItem() : undefined )} />
-                        <button className="addButton" onClick={this.handleAddTodoItem}> 
-                            <i className="icon-add"/>
-                        </button>
-                </div>
-            </AnimateHeight>
-        );
     }
 
     handleChangeSearch(textToSearch: string) {
-        let cities = this.state.data;
+        let data = this.state.data;
         if (textToSearch !== "") {
-            cities = cities.filter(function(item) {
+            data = data.filter(function(item) {
                 if (item.name.toLocaleUpperCase().search(textToSearch.toLocaleUpperCase()) === -1) {
                     return false;
                 }
                 return true;
             });
-            this.setState({ searchResult: cities, searchtextvalue: textToSearch });
+            this.setState({ searchResult: data, searchtextvalue: textToSearch });
         }
         else {
-            this.setState({ data: cities, searchtextvalue: textToSearch });
+            this.setState({ data: data, searchtextvalue: textToSearch });
         }
     }
 
@@ -138,110 +89,113 @@ export class Widget extends React.Component<WidgetProps, WidgetState> {
         // Set to true to define your widget Logo as enlargeable
         myTSHostService.setHeaderActionConfiguration({enlargeable: true, 
             customActions: {
-                addAction: () => this.displayAddButton(),
+                addAction: () => (() => undefined),
                 searchAction: () => (() => undefined)
             } });
     }
 
-    handleAddChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        this.setState({ addtextvalue: e.target.value });
-    }
+    formattedDataForList() {
+        if (this.state.data !== undefined && this.state.data.length !== 0) {
+            const dataToFormat = this.state.data;
+            let item: Line[] = [];
+            item.push({id: 1, 
+                urlPicture: '', 
+                title: dataToFormat[0].name, 
+                subtitle: 'amount of expense ' + dataToFormat[0].amount + " €", 
+                description: dataToFormat[0].description, 
+                detail:dataToFormat[0].status === "true" ? true : false });
+            item.push({id: 2, 
+                urlPicture: '', 
+                title: dataToFormat[1].name, 
+                subtitle: 'amount of expense ' + dataToFormat[1].amount + " €",
+                description: dataToFormat[1].description, 
+                detail:dataToFormat[1].status === "true" ? true : false });
+            item.push({id: 3, 
+                urlPicture: '', 
+                title: dataToFormat[2].name, 
+                subtitle: 'amount of expense ' + dataToFormat[2].amount + " €",
+                description: dataToFormat[2].description, 
+                detail:dataToFormat[2].status === "true" ? true : false });
+            item.push({id: 4, 
+                urlPicture: '', 
+                title: dataToFormat[3].name, 
+                subtitle: 'amount of expense ' + dataToFormat[3].amount + " €",
+                description: dataToFormat[3].description, 
+                detail:dataToFormat[3].status === "true" ? true : false });
 
-    upperCaseF = (a:string) => {
-        return a.charAt(0).toUpperCase() +a.slice(1);
-    }
-
-    remove(idx: number) {  
-        const items : Weather[] = this.state.data;
-
-        if (this.state.searchtextvalue !== "") {
-            const itemToRemove: Weather = this.state.searchResult[idx];
-            const indexInData = this.state.data.indexOf(itemToRemove);
-            items.splice(indexInData, 1);
-            this.setState({data: items}, () => {this.handleChangeSearch(this.state.searchtextvalue)});
+            return item;
         }
-        else {
-            items.splice(idx, 1);
-            this.setState({data: items});
+        return [];
+    }
+    
+    formattedDataForPieChart() {
+        if (this.state.data !== undefined && this.state.data.length !== 0) {
+            const dataToFormat = this.state.data;
+            return ([
+                [dataToFormat[0].name, dataToFormat[0].amount],
+                [dataToFormat[1].name, dataToFormat[1].amount],
+                [dataToFormat[2].name, dataToFormat[2].amount],
+                [dataToFormat[3].name, dataToFormat[3].amount]
+            ]);
         }
+        return [['tes', 1]];
     }
 
-    //récupère la donnée entrée dans le textvalue et la push dans le array 
-    handleAddTodoItem = () => {
-        let city = this.upperCaseF(this.state.addtextvalue);
-        if (city !== "" && !this.state.data.find(c => c.name === city)) {
-            this.getweather(city);
-        }
-    }
-
-    displayItems() {
-        const data = this.state.searchtextvalue !== "" ? this.state.searchResult : this.state.data;
+    formattedDataForTable() {
+        let val: Array<Value[]> = new Array<Value[]>();
+        if (this.state.data !== undefined && this.state.data.length !== 0) {
+            const dataToFormat = this.state.data;
         
-        return data.map((item:Weather, i:number) => {
-            let urlImage = 'http://openweathermap.org/img/w/' + item.sky + '.png';
+            val.push([{type:ValueType.Tag, value: dataToFormat[0].amount}, 
+                    {type: ValueType.Text, value: dataToFormat[0].name}, 
+                    {type:ValueType.Date, value: dataToFormat[0].date}, 
+                    {type:ValueType.Status, value: dataToFormat[0].status}]);
+            val.push([{type:ValueType.Tag, value: dataToFormat[1].amount}, 
+                    {type: ValueType.Text, value: dataToFormat[1].name}, 
+                    {type:ValueType.Date, value: dataToFormat[1].date}, 
+                    {type:ValueType.Status, value: dataToFormat[1].status}]);
+            val.push([{type:ValueType.Tag, value: dataToFormat[2].amount}, 
+                    {type: ValueType.Text, value: dataToFormat[2].name}, 
+                    {type:ValueType.Date, value: dataToFormat[2].date}, 
+                    {type:ValueType.Status, value: dataToFormat[2].status}]);
+            val.push([{type:ValueType.Tag, value: dataToFormat[3].amount}, 
+                    {type: ValueType.Text, value: dataToFormat[3].name}, 
+                    {type:ValueType.Date, value: dataToFormat[3].date}, 
+                    {type:ValueType.Status, value: dataToFormat[3].status}]);
+        }
+        return val;
+    }
 
-            return (
-                <tr key={i}>
-                    <td title={item.country}>{item.name}</td> 
-                    <td>{Math.round(item.temp)+'°C'}</td>
-                    <td title={item.desc}> 
-                        <img src={urlImage} id='myimage'/>
-                    </td>
-                    <td>
-                        <button onClick={() => this.remove(i) }>
-                            <i className="icon-trash" />
-                        </button>
-                    </td>    
-                </tr>
-            );
-        }); 
+    formattedColumnsForTable() {
+        let columns: Column[] = [];
+        columns.push({name: 'Count', width: '20%'});
+        columns.push({name: 'Expense', width: '50%'});
+        columns.push({name: 'Date', width: '20%'});
+        columns.push({name: 'Status', width: '10%'});
+
+        return columns;
     }
 
     public render() {
         if (this.props.myTSHostService.widgetIsEnlarged()) {
             return (
-                <EnlargedWidget widgetProps={this.props} cities={this.state.data} />
+                <EnlargedWidget widgetProps={this.props} data={[]} />
             );
         }
-             
-        let item: Line[] = [{id: 1, urlPicture: '', title:'title', subtitle:'subtitle', description:'description', detail:false}];
-        item.push({id: 2, urlPicture: '', title:'title2', subtitle:'subtitle2', description:'description2', detail:false});
-        item.push({id: 3, urlPicture: '', title:'title3', subtitle:'subtitle3', description:'description3', detail:false});
-        item.push({id: 4, urlPicture: '', title:'title4', subtitle:'subtitle4', description:'description4', detail:false});
-
-        let val: Array<Value[]> = new Array<Value[]>();
-        val.push([{type:ValueType.Tag, value: 12}, 
-                {type: ValueType.Text, value: 'AR'}, 
-                {type:ValueType.Date, value: '12/12/2017'}, 
-                {type:ValueType.Status, value: true}]);
-        val.push([{type:ValueType.Tag, value: '12'}, 
-                {type: ValueType.Text, value: 'AR'}, 
-                {type:ValueType.Date, value: '12/12/2017'}, 
-                {type:ValueType.Status, value: false}]);
-        val.push([{type:ValueType.Tag, value: '12'}, 
-                {type: ValueType.Text, value: 'AR'}, 
-                {type:ValueType.Date, value: '12/12/2017'}, 
-                {type:ValueType.Status, value: 'pending'}]);
-
-        let columns: Column[] = [];
-        columns.push({name: 'Count', width: '20%'});
-        columns.push({name: 'Type', width: '20%'});
-        columns.push({name: 'Date', width: '50%'});
-        columns.push({name: 'Status', width: '10%'});
 
         return (
             <div className="content">
-                {this.displayAddCity()}
-                <div className="weather-cities">
+                <div className="widget-template">
                 <Scrollbars autoHeight={true} autoHeightMin={450}>
-                        {/* <ListTemplate showPicture={true} showDetail={true} values={item}/> */}
+                        {/* <List showPicture={true} showDetail={true} values={this.formattedDataForList()}/> */}
                         {/* <PieCharts 
-                            data={[["okloplop", 1],["Test3oizjofijziojfoiezjofie", 2],["e", 2],["r", 2],["g", 2]]} 
-                            title="Test pie charts test" 
+                            data={this.formattedDataForPieChart()} 
+                            title="Pie Charts expenses" 
                             period="24/03/2019 - 20/02/2020" 
-                            tooltip="My note de frais"    
+                            tooltip="My expense"    
                         /> */}
-                        <TableTemplate title="Partner Tite" columns={columns} values={val} />
+                        <div className="partner-title">{"Partner Title"}</div>
+                        <Table columns={this.formattedColumnsForTable()} values={this.formattedDataForTable()} />
                     </Scrollbars>
                 </div>
             </div>

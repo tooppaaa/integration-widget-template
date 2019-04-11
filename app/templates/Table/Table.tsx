@@ -1,5 +1,5 @@
 import *  as React from "react";
-import './TableTemplate.less';
+import './Table.less';
 import { ValueType } from "./ValueType";
 
 export interface Value {
@@ -12,14 +12,13 @@ export interface Column {
     width: string;
 }
 
-export interface TableTemplateProps {
-    title: string;
+export interface TableProps {
     columns: Column[];
     values: Value[][];
 }
 
-export class TableTemplate extends React.Component<TableTemplateProps> {
-    constructor(props: TableTemplateProps) {
+export class Table extends React.Component<TableProps> {
+    constructor(props: TableProps) {
         super(props);
     }
 
@@ -80,7 +79,6 @@ export class TableTemplate extends React.Component<TableTemplateProps> {
     render() {
         return (
             <div>
-                <div className="partner-title">{this.props.title}</div>
                 <table className="table-template">
                     <tbody>
                         {this.displayColumns()}
