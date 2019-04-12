@@ -1,5 +1,6 @@
 import *  as React from "react";
 import './List.less';
+import './Avatar.less';
 import Truncate from 'react-truncate';
 
 export interface Line {
@@ -23,7 +24,7 @@ export class List extends React.Component<ListProps> {
     }
 
     displayAvatar(urlPicture: string) {
-        const imageLink = (urlPicture !== undefined && urlPicture !== "") ? <img src={urlPicture}></img> : <i className="icon-profil"></i>
+        const imageLink = (urlPicture !== undefined && urlPicture !== "") ? <img className="avatar-picture" src={urlPicture}></img> : <i className="icon-profil"></i>
         return (
             <div className="line-avatar">
                 <div className="Hylia-a-avatar Hylia-a-avatar--default Hylia-a-avatar--medium Hylia-a-avatar--initial">
@@ -59,7 +60,7 @@ export class List extends React.Component<ListProps> {
         const avatar = this.props.showPicture ? this.displayAvatar(value.urlPicture) : undefined;
 
         return (
-            <li className="list-template-line" key={value.id}>
+            <li className="list-line" key={value.id}>
                 {avatar}
                 <div className="line-title">
                     <div className="title">

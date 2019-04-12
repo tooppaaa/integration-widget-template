@@ -7,7 +7,6 @@ import { List, Line } from "./templates/List/List";
 import { PieCharts } from "./templates/PieCharts/PieCharts";
 import { Table, Value, Column } from "./templates/Table/Table";
 import { ValueType } from "./templates/Table/ValueType";
-import { hostmock } from "../mock/host-mock";
 
 interface Expense {
     name: string,
@@ -45,26 +44,24 @@ export class Widget extends React.Component<WidgetProps, WidgetState> {
 
         myTSHostService.setDataIsLoading();
 
-        if (hostmock.requestExternalResource !== undefined) {
-            const response = await hostmock.requestExternalResource({verb: 'GET', url: "url api" });
+        const response = await myTSHostService.requestExternalResource({verb: 'GET', url: this.props.params["domain"] });
 
-            if (response !== null){
-                let data = [];
-                try {
-                    data = JSON.parse(response.body);
-                } 
-                catch (e) {
-                    console.log(e);
-                } 
-                if (response.status === 200){
-                    const dataToSave = data as Expense[];
-                    this.setState({data: dataToSave});
-                    myTSHostService.setDataIsLoaded();
-                }
+        if (response !== null){
+            let data = [];
+            try {
+                data = JSON.parse(response.body);
+            } 
+            catch (e) {
+                console.log(e);
+            } 
+            if (response.status === 200){
+                const dataToSave = data as Expense[];
+                this.setState({data: dataToSave});
+                myTSHostService.setDataIsLoaded();
             }
-            else {
-                alert("couldn't retrieve data...")
-            }
+        }
+        else {
+            myTSHostService.raiseError("couldn't retrieve data...", "ERR_SERVICE")
         }
     }
 
@@ -95,82 +92,51 @@ export class Widget extends React.Component<WidgetProps, WidgetState> {
     }
 
     formattedDataForList() {
+        let items: Line[] = [];
         if (this.state.data !== undefined && this.state.data.length !== 0) {
-            const dataToFormat = this.state.data;
-            let item: Line[] = [];
-            item.push({id: 1, 
+            
+            this.state.data.map(line => items.push({
+                id: 1, 
                 urlPicture: '', 
-                title: dataToFormat[0].name, 
-                subtitle: 'amount of expense ' + dataToFormat[0].amount + " €", 
-                description: dataToFormat[0].description, 
-                detail:dataToFormat[0].status === "true" ? true : false });
-            item.push({id: 2, 
-                urlPicture: '', 
-                title: dataToFormat[1].name, 
-                subtitle: 'amount of expense ' + dataToFormat[1].amount + " €",
-                description: dataToFormat[1].description, 
-                detail:dataToFormat[1].status === "true" ? true : false });
-            item.push({id: 3, 
-                urlPicture: '', 
-                title: dataToFormat[2].name, 
-                subtitle: 'amount of expense ' + dataToFormat[2].amount + " €",
-                description: dataToFormat[2].description, 
-                detail:dataToFormat[2].status === "true" ? true : false });
-            item.push({id: 4, 
-                urlPicture: '', 
-                title: dataToFormat[3].name, 
-                subtitle: 'amount of expense ' + dataToFormat[3].amount + " €",
-                description: dataToFormat[3].description, 
-                detail:dataToFormat[3].status === "true" ? true : false });
-
-            return item;
+                title: line.name, 
+                subtitle: 'amount of expense ' + line.amount + " €", 
+                description: line.description, 
+                detail: line.status === "true" ? true : false 
+            }));
         }
-        return [];
+        return items;
     }
     
     formattedDataForPieChart() : (number | [number, number] | [string, number] | [string, number, number] | [number, number, number])[] {
+        let items: Array<[string, number]> = new Array<[string, number]>();
         if (this.state.data !== undefined && this.state.data.length !== 0) {
-            const dataToFormat = this.state.data;
-            return ([
-                [dataToFormat[0].name, dataToFormat[0].amount],
-                [dataToFormat[1].name, dataToFormat[1].amount],
-                [dataToFormat[2].name, dataToFormat[2].amount],
-                [dataToFormat[3].name, dataToFormat[3].amount]
-            ]);
+            this.state.data.map(item => {
+                items.push([item.name, item.amount])
+            });
         }
-        return [];
+        return items;
     }
 
     formattedDataForTable() {
-        let val: Array<Value[]> = new Array<Value[]>();
+        let items: Array<Value[]> = new Array<Value[]>();
         if (this.state.data !== undefined && this.state.data.length !== 0) {
-            const dataToFormat = this.state.data;
-        
-            val.push([{type:ValueType.Tag, value: dataToFormat[0].amount}, 
-                    {type: ValueType.Text, value: dataToFormat[0].name}, 
-                    {type:ValueType.Date, value: dataToFormat[0].date}, 
-                    {type:ValueType.Status, value: dataToFormat[0].status}]);
-            val.push([{type:ValueType.Tag, value: dataToFormat[1].amount}, 
-                    {type: ValueType.Text, value: dataToFormat[1].name}, 
-                    {type:ValueType.Date, value: dataToFormat[1].date}, 
-                    {type:ValueType.Status, value: dataToFormat[1].status}]);
-            val.push([{type:ValueType.Tag, value: dataToFormat[2].amount}, 
-                    {type: ValueType.Text, value: dataToFormat[2].name}, 
-                    {type:ValueType.Date, value: dataToFormat[2].date}, 
-                    {type:ValueType.Status, value: dataToFormat[2].status}]);
-            val.push([{type:ValueType.Tag, value: dataToFormat[3].amount}, 
-                    {type: ValueType.Text, value: dataToFormat[3].name}, 
-                    {type:ValueType.Date, value: dataToFormat[3].date}, 
-                    {type:ValueType.Status, value: dataToFormat[3].status}]);
+            this.state.data.map(item => {
+                items.push(
+                    [{type:ValueType.Tag, value: item.amount}, 
+                    {type: ValueType.Text, value: item.name}, 
+                    {type:ValueType.Date, value: item.date}, 
+                    {type:ValueType.Status, value: item.status}]
+                );
+            });
         }
-        return val;
+        return items;
     }
 
     formattedColumnsForTable() {
         let columns: Column[] = [];
         columns.push({name: 'Count', width: '20%'});
-        columns.push({name: 'Expense', width: '50%'});
-        columns.push({name: 'Date', width: '20%'});
+        columns.push({name: 'Expense', width: '40%'});
+        columns.push({name: 'Date', width: '30%'});
         columns.push({name: 'Status', width: '10%'});
 
         return columns;
@@ -188,14 +154,14 @@ export class Widget extends React.Component<WidgetProps, WidgetState> {
                 <div className="widget-template">
                 <Scrollbars autoHeight={true} autoHeightMin={450}>
                         {/* <List showPicture={true} showDetail={true} values={this.formattedDataForList()}/> */}
-                        <PieCharts 
+                        {/* <PieCharts 
                             data={this.formattedDataForPieChart()} 
                             title="Pie Charts expenses" 
                             period="24/03/2019 - 20/02/2020" 
                             tooltip="My expenses"    
-                        />
-                        {/* <div className="partner-title">{"Partner Title"}</div>
-                        <Table columns={this.formattedColumnsForTable()} values={this.formattedDataForTable()} /> */}
+                        /> */}
+                        <div className="partner-title">{"Partner Title"}</div>
+                        <Table columns={this.formattedColumnsForTable()} values={this.formattedDataForTable()} />
                     </Scrollbars>
                 </div>
             </div>

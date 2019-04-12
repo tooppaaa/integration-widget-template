@@ -11,7 +11,7 @@ export const hostmock: HostMock = {
      * - proxyMode: true => makes a real http request
      * - proxyMode: false => calls the mocked version defined in this file
      */
-    proxyMode: true,
+    proxyMode: false,
 
     /**
      * If proxyMode == true, when a direct connect request is made this secretkey will be used.
@@ -76,7 +76,7 @@ export const hostmock: HostMock = {
      * client but you may provide default values.
      */
     configuration: {
-        foo: "bar"
+        domain:"https://www.exemple.com",
     },
 
     /**
