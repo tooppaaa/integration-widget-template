@@ -1,5 +1,6 @@
 import *  as React from "react";
 import './List.less';
+import './Avatar.less';
 import Truncate from 'react-truncate';
 
 export interface Line {
