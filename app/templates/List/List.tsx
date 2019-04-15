@@ -62,7 +62,7 @@ export class List extends React.Component<ListProps> {
         return (
             <li className="list-line" key={value.id}>
                 {avatar}
-                <div className="line-title">
+                <div className="line">
                     <div className="title">
                         <Truncate lines={1} ellipsis={<span>{("...")}</span>}>
                             {value.title}
@@ -74,7 +74,7 @@ export class List extends React.Component<ListProps> {
                         </Truncate>
                     </div>
                     <div className="description">
-                        <Truncate lines={2} ellipsis={<span>{("...")}</span>}>
+                        <Truncate lines={1} width="360">
                             {value.description}
                         </Truncate>
                     </div>
