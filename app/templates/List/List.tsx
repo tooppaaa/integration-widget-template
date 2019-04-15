@@ -37,22 +37,19 @@ export class List extends React.Component<ListProps> {
     }
 
     displayDetail(value: boolean) {
+        let status: string = "";
         if (value) {
-            return (
-                <div className="line-detail">
-                    <div className="detail green">
-                    </div>
-                </div>
-            );
+            status = " active";
         }
         else {
-            return (
-                <div className="line-detail">
-                    <div className="detail red">
-                    </div>
-                </div>
-            );
+            status = " inactive";
         }
+        return (
+            <div className="line-detail">
+                <div title={status.trim().charAt(0).toUpperCase() + status.trim().slice(1)} className={"detail" + status}>
+                </div>
+            </div>
+        );
     }
 
     displayLine(value: Line) {
@@ -63,17 +60,17 @@ export class List extends React.Component<ListProps> {
             <li className="list-line" key={value.id}>
                 {avatar}
                 <div className="line">
-                    <div className="title">
+                    <div className="title" title={value.title}>
                         <Truncate lines={1} ellipsis={<span>{("...")}</span>}>
                             {value.title}
                         </Truncate>
                     </div>
-                    <div className="subtitle">
+                    <div className="subtitle" title={value.subtitle}>
                         <Truncate lines={1} ellipsis={<span>{("...")}</span>}>
                             {value.subtitle}
                         </Truncate>
                     </div>
-                    <div className="description">
+                    <div className="description" title={value.description}>
                         <Truncate lines={1} width="360">
                             {value.description}
                         </Truncate>
