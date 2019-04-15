@@ -23,21 +23,20 @@ export class Table extends React.Component<TableProps> {
     }
 
     displayStatus(value: (string | number | boolean)) {
+        let status: string = "";
+
         if (value.toString() === "true") {
-            return (
-                <div className="status active"><i className="icon-check"/></div>
-            );
+            status = " active";
         }
         else if (value.toString() === "false") {
-            return (
-                <div className="status inactive"><i className="icon-delete"/></div>
-            );
+            status = " inactive";
         }
         else if (value.toString() === "pending") {
-            return (
-                <div className="status pending"><i className="icon-waiting"/></div>
-            );
+            status = " pending";
         }
+        return (
+            <div title={status.trim().charAt(0).toUpperCase() + status.trim().slice(1)} className={"status" + status}></div>
+        );
     }
 
     displayColumns() {

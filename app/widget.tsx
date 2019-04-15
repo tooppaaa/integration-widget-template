@@ -153,15 +153,15 @@ export class Widget extends React.Component<WidgetProps, WidgetState> {
             <div className="content">
                 <div className="widget-template">
                 <Scrollbars autoHeight={true} autoHeightMin={450}>
-                        <List showPicture={true} showDetail={true} values={this.formattedDataForList()}/>
+                        {/* <List showPicture={true} showDetail={true} values={this.formattedDataForList()}/> */}
                         {/* <PieCharts 
                             data={this.formattedDataForPieChart()} 
                             title="Pie Charts expenses" 
                             period="24/03/2019 - 20/02/2020" 
                             tooltip="My expenses"    
                         /> */}
-                        {/* <div className="partner-title">{"Partner Title"}</div>
-                        <Table columns={this.formattedColumnsForTable()} values={this.formattedDataForTable()} /> */}
+                        <div className="partner-title">{"Partner Title"}</div>
+                        <Table columns={this.formattedColumnsForTable()} values={this.formattedDataForTable()} />
                     </Scrollbars>
                 </div>
             </div>
