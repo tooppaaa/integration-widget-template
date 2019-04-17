@@ -88,6 +88,17 @@ export class Widget extends React.Component<WidgetProps, WidgetState> {
         }
     }
 
+    getAllAvailableStatus() {
+        let allStatus: StatusAvailable[] = this.state.data.map(item => {return ({value:item.status, show: true})});
+        let allAvailableStatus: StatusAvailable[] = [];
+        allStatus.filter(item => {
+            if (allAvailableStatus.map(x => x.value.toString()).indexOf(item.value.toString()) <= -1) {
+                allAvailableStatus.push(item);
+            }
+        });
+        return allAvailableStatus;
+    }
+
     defineActionHeaders() {
         const {myTSHostService} = this.props;
         // Set to true to define your widget Logo as enlargeable
@@ -159,17 +170,9 @@ export class Widget extends React.Component<WidgetProps, WidgetState> {
             );
         }
 
-        let allStatus: StatusAvailable[] = this.state.data.map(item => {return ({value:item.status, show: true})});
-        let allAvailableStatus: StatusAvailable[] = [];
-        allStatus.filter(item => {
-            if (allAvailableStatus.map(x => x.value.toString()).indexOf(item.value.toString()) <= -1) {
-                allAvailableStatus.push(item);
-            }
-        });
-
         return (
             <div>
-                <Search isVisible={this.state.isSearchVisible} handleChangeSearch={(textToSearch, status) => this.handleChangeSearch(textToSearch, status)} status={allAvailableStatus} />
+                <Search isVisible={this.state.isSearchVisible} handleChangeSearch={(textToSearch, status) => this.handleChangeSearch(textToSearch, status)} status={this.getAllAvailableStatus()} />
                 <div className="widget-template">
                 <Scrollbars autoHeight autoHeightMin={this.state.isSearchVisible ? 445 : 495}>
                         <List showPicture={true} showDetail={true} values={this.formattedDataForList()}/>
