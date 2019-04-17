@@ -45,9 +45,9 @@ export class Search extends React.Component<SearchProps, SearchState> {
 
     handleClickStatus(status: StatusAvailable) {
         let allStatus = this.state.statusAvaible;
-        let findStatus = allStatus.find(stat => status.value === stat.value);
-        if (findStatus !== undefined) {
-            findStatus.show = !findStatus.show;
+        let statusToChange = allStatus.find(stat => status.value === stat.value);
+        if (statusToChange !== undefined) {
+            statusToChange.show = !statusToChange.show;
         }
         this.setState({statusAvaible: allStatus}, () => this.props.handleChangeSearch(this.state.searchText, this.state.statusAvaible));
     }
