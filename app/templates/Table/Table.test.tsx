@@ -52,29 +52,29 @@ describe('Widget Table', () => {
     });
 
     it('Check active Status type has the good css class', () => {
-        mockedLine[0][3].value = 'true';
+        mockedLine[0][3].value = 'Validated';
         const wrapper = shallow(<Table columns={mockedColumns} values={mockedLine} />);
         
-        expect(wrapper.find('.status').hasClass('active')).toBe(true);
-        expect(wrapper.find('.status').hasClass('inactive')).toBe(false);
-        expect(wrapper.find('.status').hasClass('pending')).toBe(false);
+        expect(wrapper.find('.status').hasClass('Validated')).toBe(true);
+        expect(wrapper.find('.status').hasClass('Canceled')).toBe(false);
+        expect(wrapper.find('.status').hasClass('InProgress')).toBe(false);
     });
 
     it('Check pending Status type has the good css class', () => {
-        mockedLine[0][3].value = 'pending';
+        mockedLine[0][3].value = 'InProgress';
         const wrapper = shallow(<Table columns={mockedColumns} values={mockedLine} />);
         
-        expect(wrapper.find('.status').hasClass('active')).toBe(false);
-        expect(wrapper.find('.status').hasClass('inactive')).toBe(false);
-        expect(wrapper.find('.status').hasClass('pending')).toBe(true);
+        expect(wrapper.find('.status').hasClass('Validated')).toBe(false);
+        expect(wrapper.find('.status').hasClass('Canceled')).toBe(false);
+        expect(wrapper.find('.status').hasClass('InProgress')).toBe(true);
     });
 
     it('Check inactive Status type has the good css class', () => {
-        mockedLine[0][3].value = 'false';
+        mockedLine[0][3].value = 'Canceled';
         const wrapper = shallow(<Table columns={mockedColumns} values={mockedLine} />);
         
-        expect(wrapper.find('.status').hasClass('active')).toBe(false);
-        expect(wrapper.find('.status').hasClass('inactive')).toBe(true);
-        expect(wrapper.find('.status').hasClass('pending')).toBe(false);
+        expect(wrapper.find('.status').hasClass('Validated')).toBe(false);
+        expect(wrapper.find('.status').hasClass('Canceled')).toBe(true);
+        expect(wrapper.find('.status').hasClass('InProgress')).toBe(false);
     });
 });

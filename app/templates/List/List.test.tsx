@@ -1,6 +1,7 @@
 import { shallow } from 'enzyme';
 import * as React from 'react';
 import { List, Line } from './List';
+import { Status } from '../../components/Search/Status';
 
 describe('Widget List', () => {
     let mockedProps: Line[];
@@ -12,13 +13,13 @@ describe('Widget List', () => {
             title: 'title', 
             subtitle: 'subtitle', 
             description: 'description',
-            detail: true});
+            detail: Status.Validated});
     });
 
     afterEach(() => {
         const wrapper = shallow(<List showPicture={false} showDetail={false} values={mockedProps} />);
 
-        expect(wrapper.exists('.line-title')).toBe(true);
+        expect(wrapper.exists('.line')).toBe(true);
         expect(wrapper.exists('.subtitle')).toBe(true);
         expect(wrapper.exists('.description')).toBe(true);
     });
@@ -46,21 +47,21 @@ describe('Widget List', () => {
         expect(wrapper.exists('.avatar-picture')).toBe(false);
     });
 
-    it('With showDetail = true, Check if detail is displayed with the right color', () => {
-        mockedProps[0].detail = true
+    it('With showDetail = true, Check if detail validated is displayed with the right color', () => {
+        mockedProps[0].detail = Status.Validated;
         const wrapper = shallow(<List showPicture={true} showDetail={true} values={mockedProps} />);
         
         expect(wrapper.find('.detail').length).toBe(1);
-        expect(wrapper.find('.detail').hasClass('green')).toBe(true);
-        expect(wrapper.find('.detail').hasClass('red')).toBe(false);
+        expect(wrapper.find('.detail').hasClass('Validated')).toBe(true);
+        expect(wrapper.find('.detail').hasClass('Canceled')).toBe(false);
     });
 
-    it('With showDetail = true, Check if detail is displayed with the right color', () => {
-        mockedProps[0].detail = false
+    it('With showDetail = true, Check if detail canceled is displayed with the right color', () => {
+        mockedProps[0].detail = Status.Canceled;
         const wrapper = shallow(<List showPicture={true} showDetail={true} values={mockedProps} />);
         
         expect(wrapper.find('.detail').length).toBe(1);
-        expect(wrapper.find('.detail').hasClass('green')).toBe(false);
-        expect(wrapper.find('.detail').hasClass('red')).toBe(true);
+        expect(wrapper.find('.detail').hasClass('Validated')).toBe(false);
+        expect(wrapper.find('.detail').hasClass('Canceled')).toBe(true);
     });
 });

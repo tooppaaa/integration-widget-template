@@ -127,8 +127,10 @@ export class Widget extends React.Component<WidgetProps, WidgetState> {
 
     formattedDataForTable() {
         let items: Array<Value[]> = new Array<Value[]>();
+        const dataToUse = this.state.searchtextvalue != "" || this.state.searchResult.length != 0 ? this.state.searchResult : this.state.data;
+
         if (this.state.data !== undefined && this.state.data.length !== 0) {
-            this.state.data.map(item => {
+            dataToUse.map(item => {
                 items.push(
                     [{type:ValueType.Tag, value: item.amount}, 
                     {type: ValueType.Text, value: item.name}, 
@@ -166,10 +168,10 @@ export class Widget extends React.Component<WidgetProps, WidgetState> {
         });
 
         return (
-            <div className="content">
+            <div>
                 <Search isVisible={this.state.isSearchVisible} handleChangeSearch={(textToSearch, status) => this.handleChangeSearch(textToSearch, status)} status={allAvailableStatus} />
                 <div className="widget-template">
-                <Scrollbars autoHeight={true} autoHeightMin={450}>
+                <Scrollbars autoHeight autoHeightMin={this.state.isSearchVisible ? 445 : 495}>
                         <List showPicture={true} showDetail={true} values={this.formattedDataForList()}/>
                         {/* <PieCharts 
                             data={this.formattedDataForPieChart()} 

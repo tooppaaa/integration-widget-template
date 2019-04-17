@@ -73,7 +73,7 @@ export class List extends React.Component<ListProps> {
                         </Truncate>
                     </div>
                     <div className="description" title={value.description}>
-                        <Truncate lines={1} width={360}>
+                        <Truncate lines={1} width={370}>
                             {value.description}
                         </Truncate>
                     </div>

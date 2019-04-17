@@ -23,17 +23,8 @@ export class Table extends React.Component<TableProps> {
     }
 
     displayStatus(value: (string | number | boolean)) {
-        let status: string = "";
+        let status: string = " " + value.toString();
 
-        if (value.toString() === "true") {
-            status = " active";
-        }
-        else if (value.toString() === "false") {
-            status = " inactive";
-        }
-        else if (value.toString() === "pending") {
-            status = " pending";
-        }
         return (
             <div title={status.trim().charAt(0).toUpperCase() + status.trim().slice(1)} className={"status" + status}></div>
         );
