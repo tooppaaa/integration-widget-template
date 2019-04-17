@@ -7,8 +7,8 @@ import { List, Line } from "./templates/List/List";
 import { PieCharts } from "./templates/PieCharts/PieCharts";
 import { Table, Value, Column } from "./templates/Table/Table";
 import { ValueType } from "./templates/Table/ValueType";
-import { Search, StatusAvailable } from './components/Search/Search';
-import { Status } from "./components/Search/Status";
+import { Search } from './components/Search/Search';
+import { Status, StatusAvailable } from "./components/Search/Status";
 
 interface Expense {
     name: string,

@@ -1,13 +1,8 @@
 import * as React from 'react';
 import AnimateHeight from 'react-animate-height';
 import { throttle } from 'throttle-debounce';
-import { Status } from './Status';
+import { StatusAvailable } from './Status';
 import './Search.less';
-
-export interface StatusAvailable {
-    value: Status;
-    show: boolean;
-}
 
 export interface SearchProps {
     isVisible: boolean;
