@@ -7,20 +7,22 @@ import { List, Line } from "./templates/List/List";
 import { PieCharts } from "./templates/PieCharts/PieCharts";
 import { Table, Value, Column } from "./templates/Table/Table";
 import { ValueType } from "./templates/Table/ValueType";
+import { Search, StatusAvailable } from './components/Search/Search';
+import { Status } from "./components/Search/Status";
 
 interface Expense {
     name: string,
     amount: number,
     date: string,
     description: string,
-    status: string
+    status: Status
 }
 
 interface WidgetState {
     data: Expense[];
     searchResult: Expense[];
-    addtextvalue: string;
     searchtextvalue: string;
+    isSearchVisible: boolean;
 }
 
 export class Widget extends React.Component<WidgetProps, WidgetState> {
@@ -29,13 +31,13 @@ export class Widget extends React.Component<WidgetProps, WidgetState> {
         this.state = { 
             data:[],
             searchResult:[],
-            addtextvalue : "",
-            searchtextvalue: ""
+            searchtextvalue: "",
+            isSearchVisible: false
         };
         this.defineActionHeaders();
     }
     
-    componentWillMount(){
+    componentDidMount(){
         this.getData();
     }
 
@@ -65,19 +67,24 @@ export class Widget extends React.Component<WidgetProps, WidgetState> {
         }
     }
 
-    handleChangeSearch(textToSearch: string) {
+    handleChangeSearch(textToSearch: string, status: StatusAvailable[]) {
         let data = this.state.data;
-        if (textToSearch !== "") {
+        const availableStatus = status.map(stat => { if (stat.show) { return stat.value.toString(); } return ""; });
+
+        if (textToSearch !== "" || availableStatus.indexOf("") > -1) {
             data = data.filter(function(item) {
                 if (item.name.toLocaleUpperCase().search(textToSearch.toLocaleUpperCase()) === -1) {
                     return false;
                 }
-                return true;
+                if (availableStatus.indexOf(item.status.toString()) >= 0) {
+                    return true;
+                }
+                return false;
             });
             this.setState({ searchResult: data, searchtextvalue: textToSearch });
         }
         else {
-            this.setState({ data: data, searchtextvalue: textToSearch });
+            this.setState({ data: data, searchtextvalue: textToSearch, searchResult: [] });
         }
     }
 
@@ -87,21 +94,22 @@ export class Widget extends React.Component<WidgetProps, WidgetState> {
         myTSHostService.setHeaderActionConfiguration({enlargeable: true, 
             customActions: {
                 addAction: () => (() => undefined),
-                searchAction: () => (() => undefined)
+                searchAction: () => { this.setState({ isSearchVisible: !this.state.isSearchVisible })}
             } });
     }
 
     formattedDataForList() {
         let items: Line[] = [];
-        if (this.state.data !== undefined && this.state.data.length !== 0) {
-            
-            this.state.data.map(line => items.push({
-                id: 1, 
+        const dataToUse = this.state.searchtextvalue != "" || this.state.searchResult.length != 0 ? this.state.searchResult : this.state.data;
+
+        if (dataToUse !== undefined && dataToUse.length !== 0) {
+            dataToUse.map((line, index) => items.push({
+                id: index, 
                 urlPicture: '', 
                 title: line.name, 
                 subtitle: 'amount of expense ' + line.amount + " €", 
                 description: line.description, 
-                detail: line.status === "true" ? true : false 
+                detail: line.status
             }));
         }
         return items;
@@ -149,8 +157,17 @@ export class Widget extends React.Component<WidgetProps, WidgetState> {
             );
         }
 
+        let allStatus: StatusAvailable[] = this.state.data.map(item => {return ({value:item.status, show: true})});
+        let allAvailableStatus: StatusAvailable[] = [];
+        allStatus.filter(item => {
+            if (allAvailableStatus.map(x => x.value.toString()).indexOf(item.value.toString()) <= -1) {
+                allAvailableStatus.push(item);
+            }
+        });
+
         return (
             <div className="content">
+                <Search isVisible={this.state.isSearchVisible} handleChangeSearch={(textToSearch, status) => this.handleChangeSearch(textToSearch, status)} status={allAvailableStatus} />
                 <div className="widget-template">
                 <Scrollbars autoHeight={true} autoHeightMin={450}>
                         <List showPicture={true} showDetail={true} values={this.formattedDataForList()}/>

@@ -1,0 +1,54 @@
+@import "~@talentsoft-opensource/hylia/utilities/variables.less";
+
+.input-search {
+    background-color: #f8f6f7;
+    height: 49.5px;
+    padding: 8px 30px 7px 30px;
+    border-bottom: 1px dashed rgba(6, 77, 157, 0.2);
+    width: 100%;
+    display: inline-flex;
+
+    input {
+        border: 1px solid rgba(209, 21, 72, 0.2);
+        height: 33px;
+        outline: none;
+        padding: 2px 0 0 5px;
+        width: 60%;
+        margin: 0;
+        font-family: "robotoregular";
+        font-size: 12px;
+        color: inherit;
+    }
+
+    .status-available {
+        margin-left: auto;
+        margin-right: 5px;
+    }
+}
+
+.status {
+    border: 3px solid #fff;
+    border-radius: 50%;
+    display: inline-block;
+    height: 20px;
+    margin: 3px;
+    transition: all .3s ease;
+    width: 20px;
+    box-shadow: inset 0 0 5px 0 #cacaca;
+
+    &.Validated {
+        background-color: #308649;
+    }
+
+    &.InProgress {
+        background-color: #E47524;
+    }
+
+    &.Canceled {
+        background-color: #D11548;
+    }
+    
+    &.disable {
+        background-color: gray!important;
+    }
+}

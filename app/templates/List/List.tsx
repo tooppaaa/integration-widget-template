@@ -2,6 +2,7 @@ import *  as React from "react";
 import './List.less';
 import './Avatar.less';
 import Truncate from 'react-truncate';
+import { Status } from "../../components/Search/Status";
 
 export interface Line {
     id: number;
@@ -9,7 +10,7 @@ export interface Line {
     title: string;
     subtitle: string;
     description: string;
-    detail: boolean;
+    detail: Status;
 }
 
 export interface ListProps {
@@ -21,6 +22,10 @@ export interface ListProps {
 export class List extends React.Component<ListProps> {
     constructor(props: ListProps) {
         super(props);
+    }
+
+    componentWillReceiveProps(nextProps: ListProps) {
+        this.setState({ values: nextProps!.values });
     }
 
     displayAvatar(urlPicture: string) {
@@ -36,17 +41,14 @@ export class List extends React.Component<ListProps> {
         );
     }
 
-    displayDetail(value: boolean) {
-        let status: string = "";
-        if (value) {
-            status = " active";
-        }
-        else {
-            status = " inactive";
-        }
+    displayDetail(value: Status) {
+        let status: string = " " + value.toString();
+        
         return (
             <div className="line-detail">
-                <div title={status.trim().charAt(0).toUpperCase() + status.trim().slice(1)} className={"detail" + status}>
+                <div
+                    title={status.trim().charAt(0).toUpperCase() + status.trim().slice(1)} 
+                    className={"detail" + status}>
                 </div>
             </div>
         );
@@ -55,7 +57,7 @@ export class List extends React.Component<ListProps> {
     displayLine(value: Line) {
         const detail = this.props.showDetail ? this.displayDetail(value.detail) : undefined;
         const avatar = this.props.showPicture ? this.displayAvatar(value.urlPicture) : undefined;
-
+        
         return (
             <li className="list-line" key={value.id}>
                 {avatar}
@@ -71,7 +73,7 @@ export class List extends React.Component<ListProps> {
                         </Truncate>
                     </div>
                     <div className="description" title={value.description}>
-                        <Truncate lines={1} width="360">
+                        <Truncate lines={1} width={360}>
                             {value.description}
                         </Truncate>
                     </div>

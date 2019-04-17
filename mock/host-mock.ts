@@ -4,6 +4,7 @@
 import { HostMock } from '@talentsoft-opensource/widget-display-tool/src/mock-definitions'
 import { HttpResponse, RequestOptions, HeaderActionConfiguration } from '@talentsoft-opensource/integration-widget-contract'
 import { AppHeaderActionConfiguration } from '@talentsoft-opensource/integration-widget-component';
+import { Status } from '../app/components/Search/Status';
 
 export const hostmock: HostMock = {
     /**
@@ -34,56 +35,56 @@ export const hostmock: HostMock = {
                 amount: 100,
                 date: "12/12/2018",
                 description: "my expense for food",
-                status: "true"
+                status: Status.Validated
             },
             {
                 name: "My expense report 2",
                 amount: 20,
                 date: "02/02/2018",
                 description: "my expense for food 2 zeoeijfozi fiozjf iozejfi de zejfio jzeiofjzeo ifjzeoi ziojfo zjiofeiofjzeiof oizjfioze jofiz oifzejiof",
-                status: "true"
+                status: Status.Validated
             },
             {
                 name: "My expense report 3",
                 amount: 30,
                 date: "03/03/2018",
                 description: "my expense for food during event",
-                status: "false"
+                status: Status.InProgress
             },
             {
                 name: "My expense report 4",
                 amount: 444,
                 date: "04/04/2019",
                 description: "my expense for driver in Paris",
-                status: "pending"
+                status: Status.InProgress
             },
             {
                 name: "My expense report 4",
                 amount: 444,
                 date: "04/04/2019",
                 description: "my expense for driver in Paris",
-                status: "pending"
+                status: Status.InProgress
             },
             {
                 name: "My expense report 4",
                 amount: 444,
                 date: "04/04/2019",
                 description: "my expense for driver in Paris",
-                status: "pending"
+                status: Status.Canceled
             },
             {
                 name: "My expense report 4",
                 amount: 444,
                 date: "04/04/2019",
                 description: "my expense for driver in Paris",
-                status: "pending"
+                status: Status.Canceled
             },
             {
                 name: "My expense report 4",
                 amount: 444,
                 date: "04/04/2019",
                 description: "my expense for driver in Paris",
-                status: "pending"
+                status: Status.Canceled
             },
         ];
     
