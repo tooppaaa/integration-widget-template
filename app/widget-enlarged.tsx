@@ -32,11 +32,6 @@ export class EnlargedWidget extends React.Component<EnlargedWidgetProps, Enlarge
         const {widgetProps} = this.props;
 
         widgetProps.myTSHostService.setDataIsLoaded();
-        widgetProps.myTSHostService.setHeaderActionConfiguration({enlargeable: true, 
-            customActions: {
-                addAction: (() => undefined),
-                searchAction: () => (() => undefined)
-            } });
     }
 
 
