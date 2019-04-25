@@ -1,6 +1,5 @@
 {
     "testEnvironment": "jsdom",
-    "mapCoverage": true,
     "collectCoverageFrom": [
           "app/*.{jsx,tsx}"
         ],
@@ -13,7 +12,8 @@
         "<rootDir>/tests/config/enzyme.js"
     ],    
     "testMatch": [
-        "<rootDir>/tests/**/?(*.)(spec|test).tsx"
+        "<rootDir>/tests/**/?(*.)(spec|test).tsx",
+        "<rootDir>/app/templates/**/?(*.)(spec|test).tsx"
     ],
     "testResultsProcessor": "./node_modules/jest-nunit-reporter",
     "testURL": "http://localhost",

@@ -1,61 +1,52 @@
 import *  as React from "react";
 import { WidgetProps } from "@talentsoft-opensource/integration-widget-contract"
-import '../asset/widget.less'; 
-import '../asset/image/logo-soleil.png';
+import '../asset/widget.less';
 import { EnlargedWidget } from "./widget-enlarged";
-import AnimateHeight from 'react-animate-height';
-import { throttle } from 'throttle-debounce';
 import Scrollbars from 'react-custom-scrollbars';
+import { List, Line } from "./templates/List/List";
+import { PieCharts } from "./templates/PieCharts/PieCharts";
+import { Table, Value, Column } from "./templates/Table/Table";
+import { ValueType } from "./templates/Table/ValueType";
+import { Search } from './components/Search/Search';
+import { Status, StatusAvailable } from "./components/Search/Status";
+
+interface Expense {
+    name: string,
+    amount: number,
+    date: string,
+    description: string,
+    status: Status
+}
 
 interface WidgetState {
-    data: Weather[];
-    searchResult: Weather[];
-    addtextvalue: string;
+    data: Expense[];
+    searchResult: Expense[];
     searchtextvalue: string;
-    displayAddCity: boolean;
+    isSearchVisible: boolean;
 }
 
 export class Widget extends React.Component<WidgetProps, WidgetState> {
-    handleAddChangeThrottled: throttle<(e: any) => void>;
     constructor(props: WidgetProps) {
         super(props);
         this.state = { 
             data:[],
             searchResult:[],
-            addtextvalue : "",
             searchtextvalue: "",
-            displayAddCity: false
+            isSearchVisible: false
         };
-        this.handleAddChangeThrottled = throttle(200, (e) => { this.handleAddChange(e) });
         this.defineActionHeaders();
     }
     
     componentDidMount(){
-        this.loadCities();
+        this.getData();
     }
 
-    loadCities() {
-        this.getweather('Paris');
-        this.getweather('London');
-        this.getweather('Turin');
-        this.getweather('Tunis');
-        this.getweather('Tuni');
-        this.getweather('Turi');
-        this.getweather('Par');
-        this.getweather('Rio');
-        this.getweather('Lisbon');
+    public async getData() {
+        const { myTSHostService } = this.props;
 
+        myTSHostService.setDataIsLoading();
 
-        const {myTSHostService } = this.props;
-        myTSHostService.setDataIsLoaded();
-    }
-
-    public async getweather(city:string) {
-        const {myTSHostService} = this.props;
-        const url = 'https://api.openweathermap.org/data/2.5/weather';
-        let queryString = `?q=${city}&units=metric&appid=7848d30cce738e7887f77f176bb76f2c`;
-       
-        const response = await myTSHostService.requestExternalResource({verb: 'GET', url: url + queryString });
+        const response = await myTSHostService.requestExternalResource({verb: 'GET', url: this.props.params["domain"] });
 
         if (response !== null){
             let data = [];
@@ -64,69 +55,48 @@ export class Widget extends React.Component<WidgetProps, WidgetState> {
             } 
             catch (e) {
                 console.log(e);
-            }  
-            if (data.cod === 200){
-                let weather:Weather= {
-                    name:data.name,
-                    temp:data.main.temp,
-                    temp_min: data.main.temp_min,
-                    temp_max: data.main.temp_max,
-                    sky:data.weather[0].icon,
-                    desc:data.weather[0].main,
-                    country:data.sys.country,
-                    humidity: data.main.humidity,
-                    pressure: data.main.pressure,
-                    wind: {
-                        speed: data.wind.speed,
-                        deg: data.wind.deg,
-                        gust: data.wind.gust
-                    }
-                };
-                    
-                this.setState(prevState => ({
-                    data: [...prevState.data, weather]
-                }));
-            }
-            else {
-                console.warn(city + ": " + data.message);
+            } 
+            if (response.status === 200){
+                const dataToSave = data as Expense[];
+                this.setState({data: dataToSave});
+                myTSHostService.setDataIsLoaded();
             }
         }
         else {
-            alert("this city may not exist try again...")
+            myTSHostService.raiseError("couldn't retrieve data...", "ERR_SERVICE")
         }
     }
 
-    displayAddButton() {
-        this.setState({ displayAddCity: !this.state.displayAddCity});
-    }
+    handleChangeSearch(textToSearch: string, status: StatusAvailable[]) {
+        let data = this.state.data;
+        const availableStatus = status.map(stat => { if (stat.show) { return stat.value.toString(); } return ""; });
 
-    displayAddCity() {
-        return(
-            <AnimateHeight height={this.state.displayAddCity ? 'auto' : 0} className="AnimateHeight">
-                <div className={'input-add'}>
-                    <input type="text" placeholder="Add you city" onChange={(e) => { e.persist(); this.handleAddChangeThrottled(e); } } onKeyPress={(target) => (target.key === 'Enter' ? this.handleAddTodoItem() : undefined )} />
-                        <button className="addButton" onClick={this.handleAddTodoItem}> 
-                            <i className="icon-add"/>
-                        </button>
-                </div>
-            </AnimateHeight>
-        );
-    }
-
-    handleChangeSearch(textToSearch: string) {
-        let cities = this.state.data;
-        if (textToSearch !== "") {
-            cities = cities.filter(function(item) {
+        if (textToSearch !== "" || availableStatus.indexOf("") > -1) {
+            data = data.filter(function(item) {
                 if (item.name.toLocaleUpperCase().search(textToSearch.toLocaleUpperCase()) === -1) {
                     return false;
                 }
-                return true;
+                if (availableStatus.indexOf(item.status.toString()) >= 0) {
+                    return true;
+                }
+                return false;
             });
-            this.setState({ searchResult: cities, searchtextvalue: textToSearch });
+            this.setState({ searchResult: data, searchtextvalue: textToSearch });
         }
         else {
-            this.setState({ data: cities, searchtextvalue: textToSearch });
+            this.setState({ data: data, searchtextvalue: textToSearch, searchResult: [] });
         }
+    }
+
+    getAllAvailableStatus() {
+        let allStatus: StatusAvailable[] = this.state.data.map(item => {return ({value:item.status, show: true})});
+        let allAvailableStatus: StatusAvailable[] = [];
+        allStatus.filter(item => {
+            if (allAvailableStatus.map(x => x.value.toString()).indexOf(item.value.toString()) <= -1) {
+                allAvailableStatus.push(item);
+            }
+        });
+        return allAvailableStatus;
     }
 
     defineActionHeaders() {
@@ -134,90 +104,86 @@ export class Widget extends React.Component<WidgetProps, WidgetState> {
         // Set to true to define your widget Logo as enlargeable
         myTSHostService.setHeaderActionConfiguration({enlargeable: true, 
             customActions: {
-                addAction: () => this.displayAddButton(),
-                searchAction: (textToSearch: string) => this.handleChangeSearch(textToSearch)
+                addAction: () => (() => undefined),
+                searchAction: () => { this.setState({ isSearchVisible: !this.state.isSearchVisible })}
             } });
     }
 
-    handleAddChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        this.setState({ addtextvalue: e.target.value });
-    }
+    formattedDataForList() {
+        let items: Line[] = [];
+        const dataToUse = this.state.searchtextvalue != "" || this.state.searchResult.length != 0 ? this.state.searchResult : this.state.data;
 
-    upperCaseF = (a:string) => {
-        return a.charAt(0).toUpperCase() +a.slice(1);
-    }
-
-    remove(idx: number) {  
-        const items : Weather[] = this.state.data;
-
-        if (this.state.searchtextvalue !== "") {
-            const itemToRemove: Weather = this.state.searchResult[idx];
-            const indexInData = this.state.data.indexOf(itemToRemove);
-            items.splice(indexInData, 1);
-            this.setState({data: items}, () => {this.handleChangeSearch(this.state.searchtextvalue)});
+        if (dataToUse !== undefined && dataToUse.length !== 0) {
+            dataToUse.map((line, index) => items.push({
+                id: index, 
+                urlPicture: '', 
+                title: line.name, 
+                subtitle: 'amount of expense ' + line.amount + " €", 
+                description: line.description, 
+                detail: line.status
+            }));
         }
-        else {
-            items.splice(idx, 1);
-            this.setState({data: items});
+        return items;
+    }
+    
+    formattedDataForPieChart() : (number | [number, number] | [string, number] | [string, number, number] | [number, number, number])[] {
+        let items: Array<[string, number]> = new Array<[string, number]>();
+        if (this.state.data !== undefined && this.state.data.length !== 0) {
+            this.state.data.map(item => {
+                items.push([item.name, item.amount])
+            });
         }
+        return items;
     }
 
-    //récupère la donnée entrée dans le textvalue et la push dans le array 
-    handleAddTodoItem = () => {
-        let city = this.upperCaseF(this.state.addtextvalue);
-        if (city !== "" && !this.state.data.find(c => c.name === city)) {
-            this.getweather(city);
+    formattedDataForTable() {
+        let items: Array<Value[]> = new Array<Value[]>();
+        const dataToUse = this.state.searchtextvalue != "" || this.state.searchResult.length != 0 ? this.state.searchResult : this.state.data;
+
+        if (this.state.data !== undefined && this.state.data.length !== 0) {
+            dataToUse.map(item => {
+                items.push(
+                    [{type:ValueType.Tag, value: item.amount}, 
+                    {type: ValueType.Text, value: item.name}, 
+                    {type:ValueType.Date, value: item.date}, 
+                    {type:ValueType.Status, value: item.status}]
+                );
+            });
         }
+        return items;
     }
 
-    displayItems() {
-        const data = this.state.searchtextvalue !== "" ? this.state.searchResult : this.state.data;
-        
-        return data.map((item:Weather, i:number) => {
-            let urlImage = 'http://openweathermap.org/img/w/' + item.sky + '.png';
+    formattedColumnsForTable() {
+        let columns: Column[] = [];
+        columns.push({name: 'Count', width: '20%'});
+        columns.push({name: 'Expense', width: '40%'});
+        columns.push({name: 'Date', width: '30%'});
+        columns.push({name: 'Status', width: '10%'});
 
-            return (
-                <tr key={i}>
-                    <td title={item.country}>{item.name}</td> 
-                    <td>{Math.round(item.temp)+'°C'}</td>
-                    <td title={item.desc}> 
-                        <img src={urlImage} id='myimage'/>
-                    </td>
-                    <td>
-                        <button onClick={() => this.remove(i) }>
-                            <i className="icon-trash" />
-                        </button>
-                    </td>    
-                </tr>
-            );
-        }); 
+        return columns;
     }
 
     public render() {
         if (this.props.myTSHostService.widgetIsEnlarged()) {
             return (
-                <EnlargedWidget widgetProps={this.props} cities={this.state.data} />
+                <EnlargedWidget widgetProps={this.props} data={[]} />
             );
         }
-             
+
         return (
-            <div className="content">
-                {this.displayAddCity()}
-                <div className="weather-cities">
-                <Scrollbars autoHeight={true} autoHeightMin={450}>
-                    <table className="weather-table">
-                        <thead>
-                            <tr>
-                                <th>City</th>
-                                <th>Temperature</th>
-                                <th>Weather</th>
-                                <th>Cancel</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {this.displayItems()}
-                        </tbody>
-                    </table>
+            <div>
+                <Search isVisible={this.state.isSearchVisible} handleChangeSearch={(textToSearch, status) => this.handleChangeSearch(textToSearch, status)} status={this.getAllAvailableStatus()} />
+                <div className="widget-template">
+                <Scrollbars autoHeight autoHeightMin={this.state.isSearchVisible ? 445 : 495}>
+                        <List showPicture={true} showDetail={true} values={this.formattedDataForList()}/>
+                        {/* <PieCharts 
+                            data={this.formattedDataForPieChart()} 
+                            title="Pie Charts expenses" 
+                            period="24/03/2019 - 20/02/2020" 
+                            tooltip="My expenses"    
+                        /> */}
+                        {/* <div className="partner-title">{"Partner Title"}</div>
+                        <Table columns={this.formattedColumnsForTable()} values={this.formattedDataForTable()} /> */}
                     </Scrollbars>
                 </div>
             </div>

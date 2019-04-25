@@ -6,110 +6,21 @@
     position:absolute;
 }
 
-.content {
-    .input-add {
-        background-color: #f8f6f7;
-        height: 49.5px;
-        display: flex;
-        padding: 8px 30px 7px 30px;
-        border-bottom: 1px dashed rgba(6, 77, 157, 0.2);
-        width: 100%;
-    }
-
-    input {
-        border: 1px solid rgba(0, 0, 139, 0.2);
-        height: 33px;
-        outline: none;
-        padding: 2px 0 0 5px;
-        width: 60%;
-        margin: 0;
-        font-family: "robotoregular";
-        font-size: 12px;
-        color: inherit;
-    }
-
-    button {
-        height: 33px;
-    }
-}
-
-.widget-title {
-    text-align: center;
-    width: 100%;
-    display: block;
-    font-family: robotobold;
-    color: #064d9d;
-    font-size: 12px;
-    margin-top: 10px;
-}
-
-.widget-subtitle {
-    text-align: center;
-    width: 100%;
-    display: block;
-    font-family: roboto;
-    color: #064d9d;
-    font-size: 10.8px;
-    margin-bottom: 10px;
-}
-
-#myimage{
-    width: 3em;
-    height: 3em;
-}
-
-.meteoList{
-    display: flex;
-    justify-content:  space-evenly;
-    align-items: center;
-}
-
-.weather-cities {
+.widget-template {
     height: 100%;
     width: 370px;
+    background-color: white;
 }
 
-.content {
+.partner-title {
+    margin-top: 30px;
+    margin-bottom: 40px;
+    height: 34px;
+    width: 384px;
+    color: #333333;
+    font-family: Roboto;
+    font-size: 18px;
+    line-height: 34px;
+    text-align: center;
     width: 100%;
-
-    .input-city,
-    .input-city-search {
-        display: none;
-        height: 0%;
-        transition-property: bottom;
-        transition: all 500ms ease;
-        transition-duration: 0.5s;
-    }
-
-    .input-city.active,
-    .input-city-search.active {
-        display: flex;
-        justify-content: center;
-        height: 5%;
-        margin-top: 1em;
-        margin-bottom: 1em;
-        transition: all 0.5s ease-out;
-    }
-}
-
-.weather-table{
-    width: 100%;
-    padding: 0 1rem;
-    font-size: 1.4rem;
-
-    td {
-        padding: 1rem;
-    }
-     
-    thead th {
-        font-family: @condensed_regular;
-        
-        padding: 1rem;
-        
-        border-bottom: 0.1rem solid @minion;
-    }
-
-    tbody tr:nth-child(even) {
-        background-color: @adept;
-    }
 }

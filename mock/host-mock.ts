@@ -4,6 +4,7 @@
 import { HostMock } from '@talentsoft-opensource/widget-display-tool/src/mock-definitions'
 import { HttpResponse, RequestOptions, HeaderActionConfiguration } from '@talentsoft-opensource/integration-widget-contract'
 import { AppHeaderActionConfiguration } from '@talentsoft-opensource/integration-widget-component';
+import { Status } from '../app/components/Search/Status';
 
 export const hostmock: HostMock = {
     /**
@@ -11,7 +12,7 @@ export const hostmock: HostMock = {
      * - proxyMode: true => makes a real http request
      * - proxyMode: false => calls the mocked version defined in this file
      */
-    proxyMode: true,
+    proxyMode: false,
 
     /**
      * If proxyMode == true, when a direct connect request is made this secretkey will be used.
@@ -30,24 +31,60 @@ export const hostmock: HostMock = {
     requestExternalResource: (options: RequestOptions) => {
         const data = [
             {
-                id: 'ToDo',
-                y: 12,
-                z: 2458
+                name: "My expense report",
+                amount: 100,
+                date: "12/12/2018",
+                description: "my expense for food",
+                status: Status.Validated
             },
             {
-                id: 'InProgress',
-                y: 5,
-                z: 3874
+                name: "My expense report 2",
+                amount: 20,
+                date: "02/02/2018",
+                description: "my expense for food 2 zeoeijfozi fiozjf iozejfi de zejfio jzeiofjzeo ifjzeoi ziojfo zjiofeiofjzeiof oizjfioze jofiz oifzejiof",
+                status: Status.Validated
             },
             {
-                id: 'ToValidate',
-                y: 7,
-                z: 2375
+                name: "My expense report 3",
+                amount: 30,
+                date: "03/03/2018",
+                description: "my expense for food during event",
+                status: Status.InProgress
             },
             {
-                id: 'Validated',
-                y: 18,
-                z: 129
+                name: "My expense report 4",
+                amount: 444,
+                date: "04/04/2019",
+                description: "my expense for driver in Paris",
+                status: Status.InProgress
+            },
+            {
+                name: "My expense report 4",
+                amount: 444,
+                date: "04/04/2019",
+                description: "my expense for driver in Paris",
+                status: Status.InProgress
+            },
+            {
+                name: "My expense report 4",
+                amount: 444,
+                date: "04/04/2019",
+                description: "my expense for driver in Paris",
+                status: Status.Canceled
+            },
+            {
+                name: "My expense report 4",
+                amount: 444,
+                date: "04/04/2019",
+                description: "my expense for driver in Paris",
+                status: Status.Canceled
+            },
+            {
+                name: "My expense report 4",
+                amount: 444,
+                date: "04/04/2019",
+                description: "my expense for driver in Paris",
+                status: Status.Canceled
             },
         ];
     
@@ -68,7 +105,7 @@ export const hostmock: HostMock = {
      * client but you may provide default values.
      */
     configuration: {
-        foo: "bar"
+        domain:"https://www.exemple.com",
     },
 
     /**
