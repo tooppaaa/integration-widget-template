@@ -36,9 +36,8 @@ export class EnlargedWidget extends React.Component<EnlargedWidgetProps, Enlarge
 
 
     render(){
-        const data = this.state.searchtextvalue !== "" ? this.state.searchResult : this.state.data;
         return(
-        <div className="content-enlarged">
+        <div>
             
         </div>
         );
