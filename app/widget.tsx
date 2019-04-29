@@ -10,7 +10,7 @@ import { ValueType } from "./templates/Table/ValueType";
 import { Search } from './components/Search/Search';
 import { Status, StatusAvailable } from "./components/Search/Status";
 
-interface Expense {
+export interface Expense {
     name: string,
     amount: number,
     date: string,
