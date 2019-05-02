@@ -1,7 +1,7 @@
 /**
  * This file contains the callbacks that you can modify to test the display of your widget
  */
-import { HostMock } from '@talentsoft-opensource/widget-display-tool/src/mock-definitions'
+import { HostMock } from '@talentsoft-opensource/widget-display-tool/src/host/mock-definitions'
 import { HttpResponse, RequestOptions, HeaderActionConfiguration } from '@talentsoft-opensource/integration-widget-contract'
 import { AppHeaderActionConfiguration } from '@talentsoft-opensource/integration-widget-component';
 import { Status } from '../app/components/Search/Status';
