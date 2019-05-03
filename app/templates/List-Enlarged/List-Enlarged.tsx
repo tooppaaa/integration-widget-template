@@ -4,20 +4,12 @@ import '../List/Avatar.less';
 import Truncate from 'react-truncate';
 import { Status } from "../../components/Search/Status";
 import Scrollbars from "react-custom-scrollbars";
-
-export interface Line {
-    id: number;
-    urlPicture: string;
-    title: string;
-    date: string;
-    subtitle: string;
-    description: string;
-    detail: Status;
-}
+import { Detail } from "./Detail";
+import { Line } from "./Line";
 
 export interface ListEnlargedProps {
     showPicture: boolean;
-    showDetail: boolean;
+    showStatus: boolean;
     values: Line[];
 }
 
@@ -62,10 +54,7 @@ export class ListEnlarged extends React.Component<ListEnlargedProps, ListEnlarge
     displayDetail(value: Line) {
         return (
             <div className={"detail" + (this.state.selectedItem === value.id ? " active" : "")}>
-                <div className="title">{value.title}</div>
-                <div className="subtitle">{value.subtitle}</div>
-                <div className="date">{value.date}</div>
-                <div className="description">{value.description}</div>
+                <Detail {...value} />
             </div>
         );
     }
@@ -75,7 +64,7 @@ export class ListEnlarged extends React.Component<ListEnlargedProps, ListEnlarge
     }
 
     displayLine(value: Line) {
-        const detail = this.props.showDetail ? this.displayStatus(value.detail) : undefined;
+        const status = this.props.showStatus ? this.displayStatus(value.detail) : undefined;
         const avatar = this.props.showPicture ? this.displayAvatar(value.urlPicture) : undefined;
         
         return (
@@ -99,7 +88,7 @@ export class ListEnlarged extends React.Component<ListEnlargedProps, ListEnlarge
                             </Truncate>
                         </div>
                     </div>
-                    {detail}
+                    {status}
                 </li>
             </a>
         );

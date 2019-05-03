@@ -1,8 +1,9 @@
 import * as React from "react";
 import { WidgetProps } from "@talentsoft-opensource/integration-widget-contract";
 import '../asset/widget-enlarged.less';
-import { ListEnlarged, Line } from "./templates/List-Enlarged/List-Enlarged";
+import { ListEnlarged } from "./templates/List-Enlarged/List-Enlarged";
 import { Expense } from "./widget";
+import { Line } from "./templates/List-Enlarged/Line";
 
 interface EnlargedWidgetProps {
     widgetProps: WidgetProps;
@@ -80,7 +81,7 @@ export class EnlargedWidget extends React.Component<EnlargedWidgetProps, Enlarge
     render(){
         return(
             <div>
-                <ListEnlarged showPicture={true} showDetail={true} values={this.formattedDataForList()} />
+                <ListEnlarged showPicture={true} showStatus={true} values={this.formattedDataForList()} />
             </div>
         );
     }
