@@ -21,7 +21,7 @@ export class ListEnlarged extends React.Component<ListEnlargedProps, ListEnlarge
     constructor(props: ListEnlargedProps) {
         super(props);
         this.state = {
-            selectedItem: 0
+            selectedItem: this.props.values[0]!.id
         }
     }
 
@@ -53,7 +53,7 @@ export class ListEnlarged extends React.Component<ListEnlargedProps, ListEnlarge
 
     displayDetail(value: Line) {
         return (
-            <div className={"detail" + (this.state.selectedItem === value.id ? " active" : "")}>
+            <div className={"detail" + (this.state.selectedItem === value.id ? " active" : "")} key={value.id}>
                 <Detail {...value} />
             </div>
         );
