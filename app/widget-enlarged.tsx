@@ -114,8 +114,8 @@ export class EnlargedWidget extends React.Component<EnlargedWidgetProps, Enlarge
         return(
             <div className="content-enlarged">
                 <Scrollbars autoHeight autoHeightMin={685}>
-                    <ListEnlarged showPicture={true} showStatus={true} values={this.formattedDataForList()}/>
-                    {/* <Table columns={this.formattedColumnsForTable()} values={this.formattedDataForTable()} /> */}
+                    {/* <ListEnlarged showPicture={true} showStatus={true} values={this.formattedDataForList()}/> */}
+                    <Table columns={this.formattedColumnsForTable()} values={this.formattedDataForTable()} />
                 </Scrollbars>
             </div>
         );
