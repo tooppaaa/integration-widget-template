@@ -10,7 +10,7 @@ import { ValueType } from "./templates/Table/ValueType";
 import { Search } from './components/Search/Search';
 import { Status, StatusAvailable } from "./components/Search/Status";
 
-interface Expense {
+export interface Expense {
     name: string,
     amount: number,
     date: string,
@@ -175,15 +175,14 @@ export class Widget extends React.Component<WidgetProps, WidgetState> {
                 <Search isVisible={this.state.isSearchVisible} handleChangeSearch={(textToSearch, status) => this.handleChangeSearch(textToSearch, status)} status={this.getAllAvailableStatus()} />
                 <div className="widget-template">
                 <Scrollbars autoHeight autoHeightMin={this.state.isSearchVisible ? 445 : 495}>
-                        <List showPicture={true} showDetail={true} values={this.formattedDataForList()}/>
+                        {/* <List showPicture={true} showDetail={true} values={this.formattedDataForList()}/> */}
                         {/* <PieCharts 
                             data={this.formattedDataForPieChart()} 
                             title="Pie Charts expenses" 
                             period="24/03/2019 - 20/02/2020" 
                             tooltip="My expenses"    
                         /> */}
-                        {/* <div className="partner-title">{"Partner Title"}</div>
-                        <Table columns={this.formattedColumnsForTable()} values={this.formattedDataForTable()} /> */}
+                        <Table columns={this.formattedColumnsForTable()} values={this.formattedDataForTable()} />
                     </Scrollbars>
                 </div>
             </div>
