@@ -7,6 +7,7 @@ import { ValueType } from "./templates/Table/ValueType";
 import Scrollbars from "react-custom-scrollbars";
 import { ListEnlarged } from "./templates/List-Enlarged/List-Enlarged";
 import { Line } from "./templates/List-Enlarged/Line";
+import './templates/Table/Table-Enlarged.less';
 
 interface EnlargedWidgetProps {
     widgetProps: WidgetProps;
@@ -35,6 +36,7 @@ export class EnlargedWidget extends React.Component<EnlargedWidgetProps, Enlarge
 
     componentDidMount(){
         this.getData();
+        console.log("gros enlarged");
     }
 
     public async getData() {
@@ -70,10 +72,10 @@ export class EnlargedWidget extends React.Component<EnlargedWidgetProps, Enlarge
         if (this.state.data !== undefined && this.state.data.length !== 0) {
             dataToUse.map(item => {
                 items.push(
-                    [{type:ValueType.Tag, value: item.amount}, 
+                    [{type:ValueType.Text, value: item.amount + "€"}, 
                     {type: ValueType.Text, value: item.name}, 
                     {type: ValueType.Text, value: item.description},
-                    {type:ValueType.Date, value: item.date}, 
+                    {type:ValueType.Tag, value: item.date}, 
                     {type:ValueType.Status, value: item.status}]
                 );
             });
@@ -83,9 +85,9 @@ export class EnlargedWidget extends React.Component<EnlargedWidgetProps, Enlarge
 
     formattedColumnsForTable() {
         let columns: Column[] = [];
-        columns.push({name: 'Count', width: '10%'});
+        columns.push({name: 'Amount', width: '10%'});
         columns.push({name: 'Expense', width: '20%'});
-        columns.push({name: 'Description', width: '40%'});
+        columns.push({name: 'Description', width: '50%'});
         columns.push({name: 'Date', width: '10%'});
         columns.push({name: 'Status', width: '10%'});
         

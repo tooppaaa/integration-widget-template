@@ -32,49 +32,46 @@ export class Table extends React.Component<TableProps> {
 
     displayColumns() {
         return (
-            <tr className="table-template-columns" key="colums-key">
-                {this.props.columns.map((column, index) => <th key={index} style={{width: column.width}}>{column.name}</th>)}
-            </tr>
+            <ul className="table-columns" key="colums-key">
+                {this.props.columns.map((column, index) => <li key={index} style={{width: column.width}}>{column.name}</li>)}
+            </ul>
         );
     }
 
     displayValues() {
         return (
             this.props.values.map((value, index) => 
-                <tr className="table-line" key={index}>
-                    {value.map(item => {
+                <ul className="table-line" key={index}>
+                    {value.map((item, ind) => {
                         switch(item.type) {
                             case ValueType.Date: { 
-                                return (<td className="dates" key={item.value.toString() + index}>{item.value}</td>); 
+                                return (<li className="dates" style={{width: this.props.columns[ind].width}} key={item.value.toString() + index}>{item.value}</li>); 
                             }
                             case ValueType.Text: { 
-                                return (<td className="text" key={item.value.toString() + index}>{item.value}</td>); 
+                                return (<li className="text" style={{width: this.props.columns[ind].width}} key={item.value.toString() + index}>{item.value}</li>); 
                             }
                             case ValueType.Tag: { 
-                                return (<td key={item.value.toString() + index}><span className="Hylia-a-tag Hylia-a-tag--apprentice">{item.value}</span></td>); 
+                                return (<li style={{width: this.props.columns[ind].width}} key={item.value.toString() + index}><span className="Hylia-a-tag Hylia-a-tag--apprentice">{item.value}</span></li>); 
                             }
                             case ValueType.Status: { 
-                                return (<td key={item.value.toString() + index}>{this.displayStatus(item.value)}</td>); 
+                                return (<li style={{width: this.props.columns[ind].width}} key={item.value.toString() + index}>{this.displayStatus(item.value)}</li>); 
                             }
                             default: { 
-                                return (<td className="text" key={item.value.toString() + index}>{item.value}</td>); 
+                                return (<li className="text" style={{width: this.props.columns[ind].width}} key={item.value.toString() + index}>{item.value}</li>); 
                             }
                         }})
                     }
-                </tr>
+                    <div className="border-small-width" />
+                </ul>
                 )
         );
     }
 
     render() {
         return (
-            <div>
-                <table className="table-template">
-                    <tbody>
-                        {this.displayColumns()}
-                        {this.displayValues()}
-                    </tbody>
-                </table>
+            <div className="table-template">
+                {this.displayColumns()}
+                {this.displayValues()}
             </div>
         );
     }
