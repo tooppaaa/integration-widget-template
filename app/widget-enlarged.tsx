@@ -7,7 +7,7 @@ import { ValueType } from "./templates/Table/ValueType";
 import Scrollbars from "react-custom-scrollbars";
 import { ListEnlarged } from "./templates/List-Enlarged/List-Enlarged";
 import { Line } from "./templates/List-Enlarged/Line";
-import './templates/Table/Table-Enlarged.less';
+import './templates/Table/Table-Reduced.less';
 
 interface EnlargedWidgetProps {
     widgetProps: WidgetProps;
@@ -36,7 +36,6 @@ export class EnlargedWidget extends React.Component<EnlargedWidgetProps, Enlarge
 
     componentDidMount(){
         this.getData();
-        console.log("gros enlarged");
     }
 
     public async getData() {
