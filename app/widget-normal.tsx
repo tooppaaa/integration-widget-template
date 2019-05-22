@@ -32,7 +32,7 @@ export class NormalWidget extends React.Component<NormalWidgetProps, NormalWidge
     }
     
     componentDidMount(){
-        this.getData();
+        this.getData().catch((r) => { this.props.widgetProps.myTSHostService.raiseError("could not load data", "ERR_SERVICE", r); });
     }
 
     public async getData() {
@@ -42,22 +42,19 @@ export class NormalWidget extends React.Component<NormalWidgetProps, NormalWidge
 
         const response = await myTSHostService.requestExternalResource({verb: 'GET', url: this.props.widgetProps.params["domain"] });
 
-        if (response !== null){
-            let data = [];
-            try {
-                data = JSON.parse(response.body);
-            } 
-            catch (e) {
-                console.log(e);
-            } 
-            if (response.status === 200){
+        if (response !== null) {
+            if (response.status === 200) {
+                const data = JSON.parse(response.body);
                 const dataToSave = data as Expense[];
                 this.setState({data: dataToSave});
                 myTSHostService.setDataIsLoaded();
             }
+            else {
+                myTSHostService.raiseError("Service response error...", "ERR_SERVICE");
+            }
         }
         else {
-            myTSHostService.raiseError("couldn't retrieve data...", "ERR_SERVICE")
+            myTSHostService.raiseError("couldn't retrieve data...", "ERR_SERVICE");
         }
     }
     
