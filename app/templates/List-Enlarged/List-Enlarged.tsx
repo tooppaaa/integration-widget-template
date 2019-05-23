@@ -21,7 +21,7 @@ export class ListEnlarged extends React.Component<ListEnlargedProps, ListEnlarge
     constructor(props: ListEnlargedProps) {
         super(props);
         this.state = {
-            selectedItem: this.props.values[0]!.id
+            selectedItem: this.props.values.length !== 0 ? this.props.values[0]!.id : 0
         }
     }
 

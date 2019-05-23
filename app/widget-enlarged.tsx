@@ -1,7 +1,7 @@
 import * as React from "react";
 import { WidgetProps } from "@talentsoft-opensource/integration-widget-contract";
 import '../asset/widget-enlarged.less';
-import { Expense } from "./widget";
+import { Expense } from "./Expense";
 import { Table, Value, Column } from "./templates/Table/Table";
 import { ValueType } from "./templates/Table/ValueType";
 import Scrollbars from "react-custom-scrollbars";
@@ -11,7 +11,6 @@ import './templates/Table/Table-Reduced.less';
 
 interface EnlargedWidgetProps {
     widgetProps: WidgetProps;
-    data: [];
 }
 
 interface EnlargedWidgetState {
@@ -26,7 +25,7 @@ export class EnlargedWidget extends React.Component<EnlargedWidgetProps, Enlarge
     constructor(props: EnlargedWidgetProps) {
         super(props);
         this.state = {
-            data: props.data,
+            data: [],
             searchResult:[],
             displayAdd: false,
             selectedCity: "",
@@ -34,8 +33,8 @@ export class EnlargedWidget extends React.Component<EnlargedWidgetProps, Enlarge
         };
     }
 
-    componentDidMount(){
-        this.getData();
+    componentDidMount() {
+        this.getData().catch((r) => { this.props.widgetProps.myTSHostService.raiseError("could not load data", "ERR_SERVICE", r); });
     }
 
     public async getData() {
@@ -45,22 +44,19 @@ export class EnlargedWidget extends React.Component<EnlargedWidgetProps, Enlarge
 
         const response = await myTSHostService.requestExternalResource({verb: 'GET', url: this.props.widgetProps.params["domain"] });
 
-        if (response !== null){
-            let data = [];
-            try {
-                data = JSON.parse(response.body);
-            } 
-            catch (e) {
-                console.log(e);
-            } 
-            if (response.status === 200){
+        if (response !== null) {
+            if (response.status === 200) {
+                const data = JSON.parse(response.body);
                 const dataToSave = data as Expense[];
                 this.setState({data: dataToSave});
                 myTSHostService.setDataIsLoaded();
             }
+            else {
+                myTSHostService.raiseError("Service response error...", "ERR_SERVICE");
+            }
         }
         else {
-            myTSHostService.raiseError("couldn't retrieve data...", "ERR_SERVICE")
+            myTSHostService.raiseError("couldn't retrieve data...", "ERR_SERVICE");
         }
     }
 
@@ -97,7 +93,7 @@ export class EnlargedWidget extends React.Component<EnlargedWidgetProps, Enlarge
         let items: Line[] = [];
         const dataToUse = this.state.searchtextvalue != "" || this.state.searchResult.length != 0 ? this.state.searchResult : this.state.data;
 
-        if (dataToUse !== undefined && dataToUse.length !== 0) {
+        if (this.state.data !== undefined && this.state.data.length !== 0) {
             dataToUse.map((line, index) => items.push({
                 id: index, 
                 urlPicture: '', 
@@ -115,8 +111,8 @@ export class EnlargedWidget extends React.Component<EnlargedWidgetProps, Enlarge
         return(
             <div className="content-enlarged">
                 <Scrollbars autoHeight autoHeightMin={685}>
-                    {/* <ListEnlarged showPicture={true} showStatus={true} values={this.formattedDataForList()}/> */}
-                    <Table columns={this.formattedColumnsForTable()} values={this.formattedDataForTable()} />
+                    <ListEnlarged showPicture={true} showStatus={true} values={this.formattedDataForList()}/>
+                    {/* <Table columns={this.formattedColumnsForTable()} values={this.formattedDataForTable()} /> */}
                 </Scrollbars>
             </div>
         );
