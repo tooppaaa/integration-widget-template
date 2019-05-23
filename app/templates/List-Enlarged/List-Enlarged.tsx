@@ -68,29 +68,27 @@ export class ListEnlarged extends React.Component<ListEnlargedProps, ListEnlarge
         const avatar = this.props.showPicture ? this.displayAvatar(value.urlPicture) : undefined;
         
         return (
-            <a onClick={() => this.handleSelectItem(value.id)} key={value.id}>
-                <li className={"list-line" + (this.state.selectedItem === value.id ? " active" : "")} key={value.id}>
-                    {avatar}
-                    <div className="line">
-                        <div className="title" title={value.title}>
-                            <Truncate lines={1} ellipsis={<span>{("...")}</span>}>
-                                {value.title}
-                            </Truncate>
-                        </div>
-                        <div className="subtitle" title={value.subtitle}>
-                            <Truncate lines={1} ellipsis={<span>{("...")}</span>}>
-                                {value.subtitle}
-                            </Truncate>
-                        </div>
-                        <div className="description" title={value.description}>
-                            <Truncate lines={1} width={370}>
-                                {value.description}
-                            </Truncate>
-                        </div>
+            <li className={"list-line" + (this.state.selectedItem === value.id ? " active" : "")} onClick={() => this.handleSelectItem(value.id)} key={value.id}>
+                {avatar}
+                <div className="line">
+                    <div className="title" title={value.title}>
+                        <Truncate lines={1} ellipsis={<span>{("...")}</span>}>
+                            {value.title}
+                        </Truncate>
                     </div>
-                    {status}
-                </li>
-            </a>
+                    <div className="subtitle" title={value.subtitle}>
+                        <Truncate lines={1} ellipsis={<span>{("...")}</span>}>
+                            {value.subtitle}
+                        </Truncate>
+                    </div>
+                    <div className="description" title={value.description}>
+                        <Truncate lines={1} width={370}>
+                            {value.description}
+                        </Truncate>
+                    </div>
+                </div>
+                {status}
+            </li>
         );
     }
 

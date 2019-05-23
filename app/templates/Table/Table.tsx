@@ -61,7 +61,6 @@ export class Table extends React.Component<TableProps> {
                             }
                         }})
                     }
-                    <div className="border-small-width" />
                 </ul>
                 )
         );
