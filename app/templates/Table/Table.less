@@ -3,12 +3,13 @@
 
 .table-template {
     width: 100%;
-    padding: 0 10px;
-
-    .table-template-columns {
-        margin-bottom: 10px;
-
-        th {
+    display: table;
+    .table-columns {
+        display: table-row;
+        width: 100%;
+        background-color: #FAFAFA;
+        li {
+            padding: 20px 10px;
             color: #333333;
             font-family: 'Roboto_bold';
             font-size: 14px;
@@ -16,27 +17,33 @@
             line-height: 16px;
         }
     }
-
+    
+    .table-columns > li {
+        display: table-cell;
+    }
     .table-line {
-        height: 90px;
-
-        .text {
-            font-family: 'Roboto_bold';
-            font-size: 1.4rem;
-            color: #337BB8;
+        display: table-row;
+        width: 100%;
+        li {
+            display: table-cell;
+            padding: 0px 10px 10px;
+            height: 90px;
+            vertical-align: middle;
         }
-
-        .dates {
+        li.text {
+            font-family: 'Roboto';
+            font-size: 14px;
+            color: #333333;
+        }
+        li.dates {
             height: 18px;
             width: 116px;
-            color: #737373;
+            color: #333333;
             font-family: 'Roboto';
-            font-size: 12px;
-            font-style: italic;	
+            font-size: 14px;
             line-height: 18px;
         }
-
-        .status {
+        li.status {
             border: 3px solid #fff;
             border-radius: 50%;
             display: inline-block;
@@ -45,37 +52,30 @@
             transition: all .3s ease;
             width: 20px;
             box-shadow: inset 0 0 5px 0 #cacaca;
-
             i {
                 justify-content: center;
             }
-
             &.active {
                 color: white;
                 background-color: #31B87B;
             }
-
             &.pending {
                 color: white;
                 background-color: #E47524;
             }
-
             &.inactive {
                 color: white;
                 background-color: #D11548;
             }
         }
-
-        .status:hover {
+        li.status:hover {
             border-style: solid;
             border-width: 2px;
         }
     }
-
     .table-line:nth-child(odd) {
         background-color: #FAFAFA;
     }
-
     .table-line:nth-child(even) {
         background-color: #ffffff;
     }

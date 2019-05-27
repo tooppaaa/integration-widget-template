@@ -31,7 +31,7 @@ export class Widget extends React.Component<WidgetProps, WidgetState> {
         let widget;
 
         if (this.props.myTSHostService.widgetIsEnlarged()) {
-            widget = <EnlargedWidget widgetProps={this.props} data={[]} />;
+            widget = <EnlargedWidget widgetProps={this.props} />;
         }
         else {
             widget = <NormalWidget 
