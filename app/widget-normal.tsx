@@ -9,6 +9,7 @@ import { ValueType } from "./templates/Table/ValueType";
 import { Search } from "./components/Search/Search";
 import { StatusAvailable } from "./components/Search/Status";
 import { Expense } from "./Expense";
+import { string } from "prop-types";
 
 interface NormalWidgetProps {
     widgetProps: WidgetProps;
@@ -19,6 +20,7 @@ interface NormalWidgetState {
     data: Expense[];
     searchResult: Expense[];
     searchtextvalue: string;
+    resources: Record<string, string>
 }
 
 export class NormalWidget extends React.Component<NormalWidgetProps, NormalWidgetState> {
@@ -27,12 +29,16 @@ export class NormalWidget extends React.Component<NormalWidgetProps, NormalWidge
         this.state = {
             data:[],
             searchResult:[],
-            searchtextvalue: ""
+            searchtextvalue: "",
+            resources: {}
         }
     }
     
     componentDidMount() {
         this.getData().catch((r) => { this.props.widgetProps.myTSHostService.raiseError("could not load data", "ERR_SERVICE", r); });
+        this.props.widgetProps.myTSHostService.getPreloadedResources().then(pr => {
+            resources: pr
+        });
     }
 
     public async getData() {
