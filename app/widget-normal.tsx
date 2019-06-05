@@ -31,7 +31,7 @@ export class NormalWidget extends React.Component<NormalWidgetProps, NormalWidge
         }
     }
     
-    componentDidMount(){
+    componentDidMount() {
         this.getData().catch((r) => { this.props.widgetProps.myTSHostService.raiseError("could not load data", "ERR_SERVICE", r); });
     }
 
