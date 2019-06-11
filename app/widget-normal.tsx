@@ -162,8 +162,9 @@ export class NormalWidget extends React.Component<NormalWidgetProps, NormalWidge
                         period="24/03/2019 - 20/02/2020" 
                         tooltip="My expenses"    
                     /> */}
-                    {/* <div className="partner-title">{"Partner Title"}</div>
-                    <Table columns={this.formattedColumnsForTable()} values={this.formattedDataForTable()} /> */}
+                    {/*<div className="partner-title">{this.state.resources["partner-title"]}</div>*/}
+                    <div className="partner-title">{"Partner Title"}</div>
+                    <Table columns={this.formattedColumnsForTable()} values={this.formattedDataForTable()} />
                 </Scrollbars>
             </div>
         );      

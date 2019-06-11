@@ -5,6 +5,8 @@ import { HostMock } from '@talentsoft-opensource/widget-display-tool/src/host/mo
 import { HttpResponse, RequestOptions, HeaderActionConfiguration } from '@talentsoft-opensource/integration-widget-contract'
 import { AppHeaderActionConfiguration } from '@talentsoft-opensource/integration-widget-component';
 import { Status } from '../app/components/Search/Status';
+import * as en from './../resources/en-gb.json'
+
 
 export const hostmock: HostMock = {
     /**
@@ -106,6 +108,10 @@ export const hostmock: HostMock = {
      */
     configuration: {
         domain:"https://www.exemple.com",
+    },
+
+    getPreloadedResources: () => {
+        return Promise.resolve(en.labels)
     },
 
     /**

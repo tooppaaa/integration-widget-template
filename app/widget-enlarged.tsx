@@ -35,6 +35,9 @@ export class EnlargedWidget extends React.Component<EnlargedWidgetProps, Enlarge
 
     componentDidMount() {
         this.getData().catch((r) => { this.props.widgetProps.myTSHostService.raiseError("could not load data", "ERR_SERVICE", r); });
+        this.props.widgetProps.myTSHostService.getPreloadedResources().then(pr => {
+            resources: pr
+        });
     }
 
     public async getData() {

@@ -22,12 +22,12 @@
   dependencies:
     regenerator-runtime "^0.13.2"
 
-"@talentsoft-opensource/display-tool-widget-mock@3.7.0-CAR-40053.3":
-  version "3.7.0-CAR-40053.3"
-  resolved "https://registry.yarnpkg.com/@talentsoft-opensource/display-tool-widget-mock/-/display-tool-widget-mock-3.7.0-CAR-40053.3.tgz#cf985cb579c09d85ad49842949dec7bf2da5af01"
+"@talentsoft-opensource/display-tool-widget-mock@3.7.0-CAR-40053.5":
+  version "3.7.0-CAR-40053.5"
+  resolved "https://registry.yarnpkg.com/@talentsoft-opensource/display-tool-widget-mock/-/display-tool-widget-mock-3.7.0-CAR-40053.5.tgz#a6033177026bd7493e3829d7be10a27b3be2d88a"
   dependencies:
-    "@talentsoft-opensource/integration-dll" "3.7.0-CAR-40053.3"
-    "@talentsoft-opensource/integration-widget-contract" "3.7.0-CAR-40053.3"
+    "@talentsoft-opensource/integration-dll" "3.7.0-CAR-40053.5"
+    "@talentsoft-opensource/integration-widget-contract" "3.7.0-CAR-40053.5"
     react "16.8.6"
 
 "@talentsoft-opensource/hylia@1.1.7":
@@ -38,24 +38,24 @@
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/@talentsoft-opensource/hylia/-/hylia-4.0.1.tgz#3fdff9e9fa0ef3d91bb4a0fae0c3a81abb699f94"
 
-"@talentsoft-opensource/integration-dll@3.7.0-CAR-40053.3":
-  version "3.7.0-CAR-40053.3"
-  resolved "https://registry.yarnpkg.com/@talentsoft-opensource/integration-dll/-/integration-dll-3.7.0-CAR-40053.3.tgz#a493e1b03cfe2f81232d0bc1a11eaa5dfce8fa46"
+"@talentsoft-opensource/integration-dll@3.7.0-CAR-40053.5":
+  version "3.7.0-CAR-40053.5"
+  resolved "https://registry.yarnpkg.com/@talentsoft-opensource/integration-dll/-/integration-dll-3.7.0-CAR-40053.5.tgz#34ba890b0c2c8bfc8182f0e346d3d19fef766986"
   dependencies:
     react "16.8.6"
 
-"@talentsoft-opensource/integration-widget-component@3.7.0-CAR-40053.3":
-  version "3.7.0-CAR-40053.3"
-  resolved "https://registry.yarnpkg.com/@talentsoft-opensource/integration-widget-component/-/integration-widget-component-3.7.0-CAR-40053.3.tgz#0b0efd42e6a0c3fbca8c001dcfb86dbc10882808"
+"@talentsoft-opensource/integration-widget-component@3.7.0-CAR-40053.5":
+  version "3.7.0-CAR-40053.5"
+  resolved "https://registry.yarnpkg.com/@talentsoft-opensource/integration-widget-component/-/integration-widget-component-3.7.0-CAR-40053.5.tgz#6502986a9671a147fb5fc3514980ace7651c7d6d"
   dependencies:
     "@talentsoft-opensource/hylia" "1.1.7"
     "@talentsoft-opensource/uxp-themes" "3.0.1"
     classnames "2.2.6"
     react "16.8.6"
 
-"@talentsoft-opensource/integration-widget-contract@3.7.0-CAR-40053.3":
-  version "3.7.0-CAR-40053.3"
-  resolved "https://registry.yarnpkg.com/@talentsoft-opensource/integration-widget-contract/-/integration-widget-contract-3.7.0-CAR-40053.3.tgz#0ee5db1567bd8b582a829e900378e68290265d59"
+"@talentsoft-opensource/integration-widget-contract@3.7.0-CAR-40053.5":
+  version "3.7.0-CAR-40053.5"
+  resolved "https://registry.yarnpkg.com/@talentsoft-opensource/integration-widget-contract/-/integration-widget-contract-3.7.0-CAR-40053.5.tgz#e31b6bbcdb8949d6840b3b9dd2205e57200083e3"
 
 "@talentsoft-opensource/uxp-themes@3.0.1":
   version "3.0.1"
@@ -63,14 +63,14 @@
   dependencies:
     perfect-scrollbar "^1.1.0"
 
-"@talentsoft-opensource/widget-display-tool@3.7.0-CAR-40053.3":
-  version "3.7.0-CAR-40053.3"
-  resolved "https://registry.yarnpkg.com/@talentsoft-opensource/widget-display-tool/-/widget-display-tool-3.7.0-CAR-40053.3.tgz#87a556a5cc64f39f912a03c0ff46839a70ee5268"
+"@talentsoft-opensource/widget-display-tool@3.7.0-CAR-40053.5":
+  version "3.7.0-CAR-40053.5"
+  resolved "https://registry.yarnpkg.com/@talentsoft-opensource/widget-display-tool/-/widget-display-tool-3.7.0-CAR-40053.5.tgz#5b678f2373a8dc01f3923214c38f4878645be3ad"
   dependencies:
-    "@talentsoft-opensource/display-tool-widget-mock" "3.7.0-CAR-40053.3"
-    "@talentsoft-opensource/integration-dll" "3.7.0-CAR-40053.3"
-    "@talentsoft-opensource/integration-widget-component" "3.7.0-CAR-40053.3"
-    "@talentsoft-opensource/integration-widget-contract" "3.7.0-CAR-40053.3"
+    "@talentsoft-opensource/display-tool-widget-mock" "3.7.0-CAR-40053.5"
+    "@talentsoft-opensource/integration-dll" "3.7.0-CAR-40053.5"
+    "@talentsoft-opensource/integration-widget-component" "3.7.0-CAR-40053.5"
+    "@talentsoft-opensource/integration-widget-contract" "3.7.0-CAR-40053.5"
     "@types/express" "4.16.1"
     "@types/node" "10.14.1"
     "@types/react" "16.8.12"
