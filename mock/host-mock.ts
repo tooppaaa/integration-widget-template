@@ -109,11 +109,6 @@ export const hostmock: HostMock = {
     configuration: {
         domain:"https://www.exemple.com",
     },
-
-    getPreloadedResources: () => {
-        return Promise.resolve(en.labels)
-    },
-
     /**
      * This function is called to generate the autoconnect url when using
      * openUrlinNewTab or openUrlinCurrentTab

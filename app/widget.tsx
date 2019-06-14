@@ -3,6 +3,7 @@ import { WidgetProps } from "@talentsoft-opensource/integration-widget-contract"
 import { EnlargedWidget } from "./widget-enlarged";
 import { NormalWidget } from "./widget-normal";
 
+
 interface WidgetState {
     isSearchVisible: boolean;
 }
@@ -25,7 +26,6 @@ export class Widget extends React.Component<WidgetProps, WidgetState> {
                 searchAction: () => { this.setState({ isSearchVisible: !this.state.isSearchVisible })}
             } });
     }
-
 
     public render() {
         let widget;

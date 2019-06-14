@@ -10,6 +10,7 @@ import { Search } from "./components/Search/Search";
 import { StatusAvailable } from "./components/Search/Status";
 import { Expense } from "./Expense";
 import { string } from "prop-types";
+import { languagePacks, DEFAULT_LANGUAGE, Language, getLanguage, recordIsEmpty } from './Resources';
 
 interface NormalWidgetProps {
     widgetProps: WidgetProps;
@@ -36,9 +37,20 @@ export class NormalWidget extends React.Component<NormalWidgetProps, NormalWidge
     
     componentDidMount() {
         this.getData().catch((r) => { this.props.widgetProps.myTSHostService.raiseError("could not load data", "ERR_SERVICE", r); });
-        this.props.widgetProps.myTSHostService.getPreloadedResources().then(pr => {
-            resources: pr
-        });
+        this.props.widgetProps.myTSHostService.getPreloadedResources().then(lp =>
+            {
+                if (! recordIsEmpty(lp as Record<string, string>))
+                {
+                    this.setState({
+                        resources: lp
+                    })
+                } else {
+                    this.setState({
+                        resources: languagePacks[getLanguage(this.props.widgetProps)].labels
+                    })
+                }
+            }
+        )
     }
 
     public async getData() {

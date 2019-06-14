@@ -8,6 +8,8 @@ import Scrollbars from "react-custom-scrollbars";
 import { ListEnlarged } from "./templates/List-Enlarged/List-Enlarged";
 import { Line } from "./templates/List-Enlarged/Line";
 import './templates/Table/Table-Reduced.less';
+import { languagePacks, DEFAULT_LANGUAGE, Language, getLanguage, recordIsEmpty } from './Resources';
+
 
 interface EnlargedWidgetProps {
     widgetProps: WidgetProps;
@@ -19,6 +21,7 @@ interface EnlargedWidgetState {
     displayAdd: boolean;
     selectedCity: string;
     searchtextvalue: string;
+    resources: Record<string, string>;
 }
 
 export class EnlargedWidget extends React.Component<EnlargedWidgetProps, EnlargedWidgetState> {
@@ -29,15 +32,27 @@ export class EnlargedWidget extends React.Component<EnlargedWidgetProps, Enlarge
             searchResult:[],
             displayAdd: false,
             selectedCity: "",
-            searchtextvalue: ""
+            searchtextvalue: "",
+            resources: {}
         };
     }
 
     componentDidMount() {
         this.getData().catch((r) => { this.props.widgetProps.myTSHostService.raiseError("could not load data", "ERR_SERVICE", r); });
-        this.props.widgetProps.myTSHostService.getPreloadedResources().then(pr => {
-            resources: pr
-        });
+        this.props.widgetProps.myTSHostService.getPreloadedResources().then(lp =>
+            {
+                if (! recordIsEmpty(lp as Record<string, string>))
+                {
+                    this.setState({
+                        resources: lp
+                    })
+                } else {
+                    this.setState({
+                        resources: languagePacks[getLanguage(this.props.widgetProps)].labels
+                    })
+                }
+            }
+        )
     }
 
     public async getData() {
