@@ -27,6 +27,10 @@ export const hostmock: HostMock = {
      */
     login: "mylogin",
 
+    getPreloadedResources: () => {
+        return Promise.resolve({"partner-title": "test-value"});
+    },
+
     /**
      * If proxyMode == false, this method is called instead of sending a request
      */

@@ -10,18 +10,17 @@ import { Search } from "./components/Search/Search";
 import { StatusAvailable } from "./components/Search/Status";
 import { Expense } from "./Expense";
 import { string } from "prop-types";
-import { languagePacks, DEFAULT_LANGUAGE, Language, getLanguage, recordIsEmpty } from './Resources';
 
 interface NormalWidgetProps {
     widgetProps: WidgetProps;
     isSearchVisible: boolean;
+    resources: Record<string, string>;
 }
 
 interface NormalWidgetState {
     data: Expense[];
     searchResult: Expense[];
     searchtextvalue: string;
-    resources: Record<string, string>
 }
 
 export class NormalWidget extends React.Component<NormalWidgetProps, NormalWidgetState> {
@@ -31,26 +30,11 @@ export class NormalWidget extends React.Component<NormalWidgetProps, NormalWidge
             data:[],
             searchResult:[],
             searchtextvalue: "",
-            resources: {}
         }
     }
     
     componentDidMount() {
         this.getData().catch((r) => { this.props.widgetProps.myTSHostService.raiseError("could not load data", "ERR_SERVICE", r); });
-        this.props.widgetProps.myTSHostService.getPreloadedResources().then(lp =>
-            {
-                if (! recordIsEmpty(lp as Record<string, string>))
-                {
-                    this.setState({
-                        resources: lp
-                    })
-                } else {
-                    this.setState({
-                        resources: languagePacks[getLanguage(this.props.widgetProps)].labels
-                    })
-                }
-            }
-        )
     }
 
     public async getData() {
@@ -174,8 +158,7 @@ export class NormalWidget extends React.Component<NormalWidgetProps, NormalWidge
                         period="24/03/2019 - 20/02/2020" 
                         tooltip="My expenses"    
                     /> */}
-                    {/*<div className="partner-title">{this.state.resources["partner-title"]}</div>*/}
-                    <div className="partner-title">{"Partner Title"}</div>
+                    {<div className="partner-title">{this.props.resources["partner-title"]}</div>}
                     <Table columns={this.formattedColumnsForTable()} values={this.formattedDataForTable()} />
                 </Scrollbars>
             </div>
