@@ -9,7 +9,6 @@ import { ValueType } from "./templates/Table/ValueType";
 import { Search } from "./components/Search/Search";
 import { StatusAvailable } from "./components/Search/Status";
 import { Expense } from "./Expense";
-import { string } from "prop-types";
 
 interface NormalWidgetProps {
     widgetProps: WidgetProps;
@@ -158,8 +157,8 @@ export class NormalWidget extends React.Component<NormalWidgetProps, NormalWidge
                         period="24/03/2019 - 20/02/2020" 
                         tooltip="My expenses"    
                     /> */}
-                    {<div className="partner-title">{this.props.resources["partner-title"]}</div>}
-                    <Table columns={this.formattedColumnsForTable()} values={this.formattedDataForTable()} />
+                    {/* <div className="partner-title">{"Partner Title"}</div>
+                    <Table columns={this.formattedColumnsForTable()} values={this.formattedDataForTable()} /> */}
                 </Scrollbars>
             </div>
         );      
