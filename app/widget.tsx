@@ -7,7 +7,6 @@ import { languagePacks, getLanguage, recordIsEmpty } from './Resources';
 
 interface WidgetState {
     isSearchVisible: boolean;
-    resources: Record<string, string>;
 }
 
 export class Widget extends React.Component<WidgetProps, WidgetState> {
@@ -15,48 +14,8 @@ export class Widget extends React.Component<WidgetProps, WidgetState> {
         super(props);
         this.state = {
             isSearchVisible: false,
-            resources: {}
         };
         this.defineActionHeaders();
-    }
-
-    componentDidMount() {
-        this.props.myTSHostService.getPreloadedResources().then(lp =>
-            {
-                if (! recordIsEmpty(lp as Record<string, string>))
-                {
-                    this.setState({
-                        resources: lp
-                    });
-                } else {
-                    this.setState({
-                        resources: languagePacks[getLanguage(this.props)].labels
-                    });
-                    console.log("Record is empty")
-                }
-            }
-        )
-    }
-
-    componentDidUpdate(prevProps: WidgetProps) {
-        if (this.props.language !== prevProps.language)
-        {
-            this.props.myTSHostService.getPreloadedResources().then(lp =>
-                {
-                    if (! recordIsEmpty(lp as Record<string, string>))
-                    {
-                        this.setState({
-                            resources: lp
-                        });
-                    } else {
-                        this.setState({
-                            resources: languagePacks[getLanguage(this.props)].labels
-                        });
-                        console.log("Record is empty update")
-                    }
-                }
-            )
-        }
     }
 
     defineActionHeaders() {
@@ -73,13 +32,12 @@ export class Widget extends React.Component<WidgetProps, WidgetState> {
         let widget;
 
         if (this.props.myTSHostService.widgetIsEnlarged()) {
-            widget = <EnlargedWidget widgetProps={this.props} resources={this.state.resources} />;
+            widget = <EnlargedWidget widgetProps={this.props} />;
         }
         else {
             widget = <NormalWidget 
                         widgetProps={this.props}
                         isSearchVisible={this.state.isSearchVisible}
-                        resources={this.state.resources}
                     />
         }
 

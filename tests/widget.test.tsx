@@ -15,7 +15,7 @@ describe('Widget', () => {
         raiseError: () => {}, 
         setHeaderActionConfiguration: (configuration: HeaderActionConfiguration) => jest.fn(),
         widgetIsEnlarged: () => false,
-        getPreloadedResources: () => Promise.resolve({})
+        getPreloadedResources: () => {return {}}
     };
 
     var params: { [name: string]: string; } = {};

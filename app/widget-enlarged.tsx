@@ -12,7 +12,6 @@ import './templates/Table/Table-Reduced.less';
 
 interface EnlargedWidgetProps {
     widgetProps: WidgetProps;
-    resources: Record<string, string>;
 }
 
 interface EnlargedWidgetState {

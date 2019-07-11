@@ -5,8 +5,9 @@ import { HostMock } from '@talentsoft-opensource/widget-display-tool/src/host/mo
 import { HttpResponse, RequestOptions, HeaderActionConfiguration } from '@talentsoft-opensource/integration-widget-contract'
 import { AppHeaderActionConfiguration } from '@talentsoft-opensource/integration-widget-component';
 import { Status } from '../app/components/Search/Status';
-import * as en from './../resources/en-gb.json'
-
+import * as en from '../resources/en-gb.json';
+import * as fr from '../resources/fr-fr.json';
+import * as def from '../resources/default.json';
 
 export const hostmock: HostMock = {
     /**
@@ -27,8 +28,17 @@ export const hostmock: HostMock = {
      */
     login: "mylogin",
 
-    getPreloadedResources: () => {
-        return Promise.resolve({"partner-title": "test-value"});
+    getPreloadedResources: (language: string) => {
+        switch (language) {
+            case 'en-gb':
+                return en['labels'];
+                break;
+            case 'fr-fr':
+                return fr['labels'];
+                break;
+            default:
+                return def['labels'];
+        }
     },
 
     /**
