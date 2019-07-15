@@ -154,7 +154,6 @@ ___
 This method allows to retrieve customized resources by the client if he has done so, or resources given by the partner if not.
 The client can customize labels. His customizations will only be available to him. 
 If the language used is not available among the given resources, the default resources are taken from "default.json".
-It is recommended to use this method in componentDidMount (in widget.tsx) to set the resource state of the widget due to behavior of Promise.
 
 #### Type declaration
 ▸(): `void`
