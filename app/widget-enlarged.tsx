@@ -9,7 +9,6 @@ import { ListEnlarged } from "./templates/List-Enlarged/List-Enlarged";
 import { Line } from "./templates/List-Enlarged/Line";
 import './templates/Table/Table-Reduced.less';
 
-
 interface EnlargedWidgetProps {
     widgetProps: WidgetProps;
 }
@@ -30,7 +29,7 @@ export class EnlargedWidget extends React.Component<EnlargedWidgetProps, Enlarge
             searchResult:[],
             displayAdd: false,
             selectedCity: "",
-            searchtextvalue: "",
+            searchtextvalue: ""
         };
     }
 

@@ -4,7 +4,6 @@ import { EnlargedWidget } from "./widget-enlarged";
 import { NormalWidget } from "./widget-normal";
 import { languagePacks, getLanguage, recordIsEmpty } from './Resources';
 
-
 interface WidgetState {
     isSearchVisible: boolean;
 }
@@ -13,7 +12,7 @@ export class Widget extends React.Component<WidgetProps, WidgetState> {
     constructor(props: WidgetProps) {
         super(props);
         this.state = {
-            isSearchVisible: false,
+            isSearchVisible: false
         };
         this.defineActionHeaders();
     }
@@ -28,6 +27,7 @@ export class Widget extends React.Component<WidgetProps, WidgetState> {
             } });
     }
 
+    
     public render() {
         let widget;
 

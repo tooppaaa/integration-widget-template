@@ -27,7 +27,7 @@ export class NormalWidget extends React.Component<NormalWidgetProps, NormalWidge
         this.state = {
             data:[],
             searchResult:[],
-            searchtextvalue: "",
+            searchtextvalue: ""
         }
     }
     
