@@ -14,7 +14,8 @@ describe('Widget', () => {
         requestExternalResource: (options: RequestOptions) => Promise.resolve({headers: {"": undefined}, status: 200, body: ""}),
         raiseError: () => {}, 
         setHeaderActionConfiguration: (configuration: HeaderActionConfiguration) => jest.fn(),
-        widgetIsEnlarged: () => false
+        widgetIsEnlarged: () => false,
+        requestInternalResource: (options: RequestOptions) => Promise.resolve({headers: {"": undefined}, status: 200, body: ""}),
     };
 
     var params: { [name: string]: string; } = {};
