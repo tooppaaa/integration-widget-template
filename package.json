@@ -15,9 +15,8 @@
     "test": "yarn jest --config=jest.config.json"
   },
   "dependencies": {
-    "@talentsoft-opensource/hylia": "^4.0.1",
+    "@talentsoft-opensource/hylia": "4.0.1",
     "@talentsoft-opensource/integration-dll": "3.5.0",
-    "@talentsoft/hylia-react": "^4.1.1-beta2",
     "@types/enzyme": "^3.9.1",
     "@types/jest": "^24.0.11",
     "@types/react": "^16.4.16",
