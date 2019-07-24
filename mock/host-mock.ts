@@ -5,6 +5,9 @@ import { HostMock } from '@talentsoft-opensource/widget-display-tool/src/host/mo
 import { HttpResponse, RequestOptions, HeaderActionConfiguration } from '@talentsoft-opensource/integration-widget-contract'
 import { AppHeaderActionConfiguration } from '@talentsoft-opensource/integration-widget-component';
 import { Status } from '../app/components/Search/Status';
+import * as en from '../resources/en-gb.json';
+import * as fr from '../resources/fr-fr.json';
+import * as def from '../resources/default.json';
 
 export const hostmock: HostMock = {
     /**
@@ -24,6 +27,19 @@ export const hostmock: HostMock = {
      * If proxyMode == true, when a direct connect request is made this login will be used
      */
     login: "mylogin",
+
+    getPreloadedResources: (language: string) => {
+        switch (language) {
+            case 'en-gb':
+                return en['labels'];
+                break;
+            case 'fr-fr':
+                return fr['labels'];
+                break;
+            default:
+                return def['labels'];
+        }
+    },
 
     /**
      * If proxyMode == false, this method is called instead of sending a request
@@ -107,7 +123,6 @@ export const hostmock: HostMock = {
     configuration: {
         domain:"https://www.exemple.com",
     },
-
     /**
      * This function is called to generate the autoconnect url when using
      * openUrlinNewTab or openUrlinCurrentTab
