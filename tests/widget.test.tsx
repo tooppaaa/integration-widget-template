@@ -1,7 +1,7 @@
 import { mount, shallow } from 'enzyme';
 import * as React from 'react';
 import { Widget } from '../app/widget';
-import { WidgetProps, MyTSHostService, RequestOptions, HeaderActionConfiguration } from "@talentsoft-opensource/integration-widget-contract/dist/widget-contract-myts"
+import { WidgetProps, MyTSHostService, RequestOptions, HeaderActionConfiguration, DashboardScope } from "@talentsoft-opensource/integration-widget-contract/dist/widget-contract-myts"
 
 describe('Widget', () => {
     const myTSHostService: MyTSHostService = {
@@ -12,6 +12,7 @@ describe('Widget', () => {
         openUrlInCurrentTab: (url: string) => jest.fn(),
         getUrlForCurrentContext: (url: string) => Promise.resolve(""),
         requestExternalResource: (options: RequestOptions) => Promise.resolve({headers: {"": undefined}, status: 200, body: ""}),
+        requestInternalResource: (options: RequestOptions) => Promise.resolve({headers: {"": undefined}, status: 200, body: ""}),
         raiseError: () => {}, 
         setHeaderActionConfiguration: (configuration: HeaderActionConfiguration) => jest.fn(),
         widgetIsEnlarged: () => false,
@@ -24,7 +25,13 @@ describe('Widget', () => {
     const props: WidgetProps = {
         myTSHostService: myTSHostService,
         language: 'fr-fr',
-        params: params
+        params: params,
+        currentUser: {
+            login: '',
+            employeeNumber: ''
+        },
+        isMobile: false,
+        scope: DashboardScope.Me
     };
 
     const renderWidget = async () => {
