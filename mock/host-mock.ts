@@ -119,8 +119,9 @@ export const hostmock: HostMock = {
      * In production, those properties are defined for each 
      * client but you may provide default values.
      */
-    configuration: {
+    configuration: {  
         domain:"https://www.exemple.com",
+        apikey:"AZERTY",      
     },
     /**
      * This function is called to generate the autoconnect url when using

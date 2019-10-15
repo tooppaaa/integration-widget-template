@@ -7,7 +7,7 @@
   "author": "Simon Bergot <sbergot@talentsoft.com>",
   "license": "MIT",
   "scripts": {
-    "build": "webpack -p && ts-node ./build_manifest.ts",
+    "build": "webpack -p && ts-node ./build_metadatafiles.ts",
     "build:debug": "webpack -d",
     "build:doc": "node ./copy_doc.js",
     "display": "node ./display.js",
