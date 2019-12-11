@@ -17,6 +17,14 @@ export const hostmock: HostMock = {
     proxyMode: false,
 
     /**
+     * This setting controls the type of security headers
+     * used to authenticate a request:
+     * - securityMode: directconnect => (deprecated) adds the login and a token with the direct connect format
+     * - securityMode: jwtsharedsecret => adds a token in the jwt format
+     */
+    securityMode: "jwtsharedsecret",
+
+    /**
      * If proxyMode == true, when a direct connect request is made this secretkey will be used.
      * It should be identical to the one configured in the remote service that will be accessed.
      */
