@@ -1,7 +1,7 @@
 {
     "labels": {
         "partner-title": "My expenses",
-        "partner-serie-tocomplete": "To complete ",
+        "partner-serie-tocomplete": "To  complete ",
         "partner-serie-invalidation": "In validation",
         "partner-serie-tovalidate": "To validate by myself",
         "partner-serie-validated": "Validated",
