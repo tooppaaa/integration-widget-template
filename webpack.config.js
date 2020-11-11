@@ -9,6 +9,9 @@ module.exports =
             [widgetName]: './app/widget.tsx',
             hostmock: './mock/host-mock.ts'
         },
+        externals: {
+            react: "React"
+        },
         module: {
             rules: [
                 {
@@ -53,10 +56,6 @@ module.exports =
             libraryTarget: 'window'
         },
         plugins: [
-            new CleanWebpackPlugin([path.resolve(__dirname, 'dist')], { verbose: false }),
-            new webpack.DllReferencePlugin({
-                context: '.',
-                manifest: require('./node_modules/@talentsoft-opensource/integration-dll/dist/integration-manifest.json')
-            })
+            new CleanWebpackPlugin([path.resolve(__dirname, 'dist')], { verbose: false })
         ],
     };
